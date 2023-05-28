@@ -14,9 +14,10 @@ import { Tooltip } from "@chakra-ui/tooltip";
 const appVersion = require("../../../package.json").version;
 
 function Footer(props) {
+  const textColor = useColorModeValue("gray.900", "white");
   return (
-    <Flex alignItems="center" gap="2">
-      <Text color="gray.900">v{appVersion}</Text>
+    <Flex alignItems="center" gap="6">
+      <Text color={textColor}>v{appVersion}</Text>
       <Tooltip label="Join our Discord!" hasArrow>
         <IconButton
           aria-label="Discord Button"
