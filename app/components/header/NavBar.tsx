@@ -1,6 +1,6 @@
 import React from "react";
 
-function Header() {
+function NavBar() {
   return (
     <React.Fragment>
       <nav>
@@ -14,4 +14,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default NavBar;

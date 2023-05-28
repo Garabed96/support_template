@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./header/header";
+import NavBar from "./header/NavBar";
 import Footer from "./Footer/Footer";
 
 export default function ComponentsLayout({
@@ -10,7 +10,7 @@ export default function ComponentsLayout({
   return (
     <section>
       {/* Include shared UI here e.g. a header or sidebar */}
-      <Header />
+      <NavBar />
       {children}
       <Footer />
     </section>
