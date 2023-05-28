@@ -1,14 +1,10 @@
-"use client"
+"use client";
 
-import React from 'react';
+import React from "react";
 
 const Page = () => {
-    console.log("LOGIN")
-    return (
-        <div>
-          login
-        </div>
-    );
+  console.log("LOGIN");
+  return <div>login</div>;
 };
 
 export default Page;
