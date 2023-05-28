@@ -1,10 +1,10 @@
 "use client";
-
+import Layout from "./../../components/layout";
 import React from "react";
 
 const Page = () => {
   console.log("LOGIN");
-  return <div>login</div>;
+  return <Layout>Login Page</Layout>;
 };
 
 export default Page;

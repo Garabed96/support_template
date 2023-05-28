@@ -5,12 +5,12 @@ import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
 import React from "react";
 // const inter = Inter({ subsets: ["latin"] });
-
 export const metadata = {
   title: "OrdKit - Support",
   description: "Ordkit support ticket app",
 };
-
+// Root layout is required
+// https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts
 export default function RootLayout({
   children,
 }: {
@@ -22,9 +22,8 @@ export default function RootLayout({
 
       <Head />
       <body>
-        <Header />
         {children}
-        <Footer />
+        {/*<Footer />*/}
       </body>
     </html>
   );
