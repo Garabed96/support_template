@@ -1,9 +1,24 @@
-import { FC } from 'react';
+"use client"
 
-interface pageProps {}
+import React from 'react';
 
-const page: FC<pageProps> = ({}) => {
-    return <div> login </div>
-}
+const Page = () => {
+    console.log("LOGIN")
+    return (
+        <div>
+          login
+        </div>
+    );
+};
 
-export default page;
+export default Page;
+
+// import { FC } from 'react';
+//
+// interface pageProps {}
+//
+// const page: FC<pageProps> = ({}) => {
+//     return <div> login </div>
+// }
+//
+// export default page;
