@@ -17,6 +17,7 @@ const FaqSection = () => {
       justify="center"
       minHeight="100vh"
       padding="2rem"
+      pb="10rem"
     >
       <Heading as="h1" size="xl" marginBottom="1rem">
         Frequently Asked Questions
@@ -32,7 +33,9 @@ const FaqSection = () => {
                 _expanded={{ bg: "blue.900", color: "white" }}
                 textAlign="left"
               >
-                {index + 1}. {item.question}
+                <Text fontStyle="italic">
+                  {index + 1}. {item.question}
+                </Text>
               </AccordionButton>
             </h2>
             <AccordionPanel>{item.answer}</AccordionPanel>
