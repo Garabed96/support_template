@@ -15,7 +15,7 @@ const FaqSection = () => {
       direction="column"
       align="center"
       justify="center"
-      minHeight="80vh"
+      minHeight="100vh"
       padding="2rem"
     >
       <Heading as="h1" size="xl" marginBottom="1rem">
@@ -24,19 +24,20 @@ const FaqSection = () => {
       <Text fontSize="lg" color="gray.600" marginBottom="2rem">
         Find answers to common questions about our refunding process.
       </Text>{" "}
-      <Accordion allowToggle>
-        <Accordion allowToggle maxW="600px">
-          {faq_data.map((item, index) => (
-            <AccordionItem key={index} w="full">
-              <h2>
-                <AccordionButton textAlign="left">
-                  {index + 1}. {item.question}
-                </AccordionButton>
-              </h2>
-              <AccordionPanel>{item.answer}</AccordionPanel>
-            </AccordionItem>
-          ))}
-        </Accordion>
+      <Accordion allowMultiple maxW="600px">
+        {faq_data.map((item, index) => (
+          <AccordionItem key={index} w="full">
+            <h2>
+              <AccordionButton
+                _expanded={{ bg: "blue.900", color: "white" }}
+                textAlign="left"
+              >
+                {index + 1}. {item.question}
+              </AccordionButton>
+            </h2>
+            <AccordionPanel>{item.answer}</AccordionPanel>
+          </AccordionItem>
+        ))}
       </Accordion>
     </Flex>
   );
