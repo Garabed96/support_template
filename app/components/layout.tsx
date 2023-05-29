@@ -1,7 +1,7 @@
 import React from "react";
 // import NavBar from "./header/NavBar";
 // import Footer from "./Footer/Footer";
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text, Spacer } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
 import { useColorModeValue } from "@chakra-ui/color-mode";
 const NavBar = dynamic(() => import("./header/NavBar"));
@@ -13,28 +13,25 @@ export default function ComponentsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Flex direction="column" minHeight="80vh">
+    <Flex>
       <NavBar />
       <Box flex="1">{children}</Box>
-      <Box
-        bg="black"
-        py="4"
+      <Flex
         as="footer"
         position="fixed"
         bottom="0"
         left="0"
         right="0"
-        justifyContent="center"
+        justifyContent="right"
         alignItems="center"
         gap="6"
         py="4"
+        px="12"
         bg={useColorModeValue("white", "gray.800")}
         zIndex="9999"
       >
-        {" "}
-        {/* Apply black background color around the footer */}
         <Footer />
-      </Box>
+      </Flex>
     </Flex>
   );
 }

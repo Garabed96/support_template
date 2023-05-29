@@ -16,19 +16,7 @@ const appVersion = require("../../../package.json").version;
 function Footer(props) {
   const textColor = useColorModeValue("gray.900", "white");
   return (
-    <Flex
-      as="footer"
-      position="fixed"
-      bottom="0"
-      left="0"
-      right="0"
-      justifyContent="center"
-      alignItems="center"
-      gap="6"
-      py="4"
-      bg={useColorModeValue("white", "gray.800")}
-      zIndex="9999"
-    >
+    <Flex>
       <Text color={textColor}>v{appVersion}</Text>
       <Tooltip label="Join our Discord!" hasArrow>
         <IconButton
