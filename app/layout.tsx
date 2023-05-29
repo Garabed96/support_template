@@ -1,14 +1,14 @@
+"use client";
 // import "./globals.css";
 import { Inter } from "next/font/google";
 import Head from "./head";
+import { ChakraProvider } from "@chakra-ui/react";
 import NavBar from "./components/header/NavBar";
 import Footer from "./components/footer/footer";
 import React from "react";
-// const inter = Inter({ subsets: ["latin"] });
-export const metadata = {
-  title: "OrdKit - Support",
-  description: "Ordkit support ticket app",
-};
+
+const inter = Inter({ subsets: ["latin"] });
+
 // Root layout is required
 // https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts
 export default function RootLayout({
@@ -18,10 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/*<body className={inter.className}>*/}
-
       <Head />
-      <body>{children}</body>
+      <body className={inter.className}>
+        <ChakraProvider>{children}</ChakraProvider>
+      </body>
     </html>
   );
 }
