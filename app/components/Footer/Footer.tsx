@@ -32,7 +32,9 @@ function Footer(props) {
           rounded="full"
           variant="ghost"
           icon={<RiDiscordFill />}
-          onClick={() => window.open("", "_blank")}
+          onClick={() =>
+            window.open(process.env.NEXT_PUBLIC_ORDKIT_DISCORD_URL, "_blank")
+          }
         />
       </Tooltip>
       <Tooltip label="Follow us on Twitter!" hasArrow>
@@ -42,7 +44,9 @@ function Footer(props) {
           rounded="full"
           variant="ghost"
           icon={<AiFillTwitterCircle />}
-          onClick={() => window.open("", "_blank")}
+          onClick={() =>
+            window.open(process.env.NEXT_PUBLIC_ORDKIT_TWITTER_URL, "_blank")
+          }
         />
       </Tooltip>
     </Flex>

@@ -19,7 +19,6 @@ const LandingPage = () => {
           src={"/logos/primary-logo.svg"}
           width={300}
           height={100}
-          maxW={50}
           alt="logo"
         />
       </Heading>

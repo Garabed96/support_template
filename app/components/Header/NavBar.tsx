@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@chakra-ui/button";
 import { Flex, Spacer, Box, Heading, ButtonGroup } from "@chakra-ui/react";
 import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
+import LoginWithDiscordButton from "@/app/components/buttons/LoginWithDiscordButton";
 
 function NavBar() {
   return (
@@ -30,15 +31,7 @@ function NavBar() {
             </Button>
           </Link>
         </Box>
-        <Button
-          w="full"
-          rounded="sm"
-          variant="outline"
-          _hover={{ bg: "green.900" }}
-          rightIcon={<ArrowForwardIcon />}
-        >
-          Login with Discord
-        </Button>
+        <LoginWithDiscordButton />
       </ButtonGroup>
     </Flex>
   );
