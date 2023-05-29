@@ -7,8 +7,6 @@ import NavBar from "./components/Header/NavBar";
 import Footer from "./components/Footer/Footer";
 import React from "react";
 
-const inter = Inter({ subsets: ["latin"] });
-
 // Root layout is required
 // https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts
 export default function RootLayout({
@@ -19,12 +17,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head />
-
-      <body className={inter.className}>
-        <ChakraProvider theme={theme}>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          {children}{" "}
-        </ChakraProvider>
+      <body>
+        <ChakraProvider theme={theme}>{children} </ChakraProvider>
       </body>
     </html>
   );

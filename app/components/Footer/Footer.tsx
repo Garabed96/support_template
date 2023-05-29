@@ -15,17 +15,19 @@ function Footer(props) {
   return (
     <Flex
       w="full"
-      p={2}
+      p={4}
       pos="fixed"
       bottom={0}
-      borderTop="2px solid"
+      borderTop="1px solid"
       borderColor="whiteAlpha.200"
       zIndex={999}
-      align="center" // Align children vertically center
+      align="center"
+      justifyContent="right"
     >
       <Text color={textColor}>v{appVersion}</Text>
       <Tooltip label="Join our Discord!" hasArrow>
         <IconButton
+          ml={2}
           aria-label="Discord Button"
           rounded="full"
           variant="ghost"
@@ -35,7 +37,7 @@ function Footer(props) {
       </Tooltip>
       <Tooltip label="Follow us on Twitter!" hasArrow>
         <IconButton
-          ml={2}
+          mr={2}
           aria-label="Twitter Button"
           rounded="full"
           variant="ghost"
