@@ -8,14 +8,14 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-
+import faq_data from "./FAQ.json";
 const FaqSection = () => {
   return (
     <Flex
       direction="column"
       align="center"
       justify="center"
-      minHeight="50vh"
+      minHeight="80vh"
       padding="2rem"
     >
       <Heading as="h1" size="xl" marginBottom="1rem">
@@ -25,19 +25,18 @@ const FaqSection = () => {
         Find answers to common questions about our refunding process.
       </Text>{" "}
       <Accordion allowToggle>
-        <AccordionItem>
-          <h2>
-            <AccordionButton>Question 1</AccordionButton>
-          </h2>
-          <AccordionPanel>Answer 1</AccordionPanel>
-        </AccordionItem>
-        <AccordionItem>
-          <h2>
-            <AccordionButton>Question 2</AccordionButton>
-          </h2>
-          <AccordionPanel>Answer 2</AccordionPanel>
-        </AccordionItem>
-        {/* Add more AccordionItems for additional questions and answers */}
+        <Accordion allowToggle>
+          {faq_data.map((item, index) => (
+            <AccordionItem key={index} w="full">
+              <h2>
+                <AccordionButton>
+                  {index + 1}. {item.question}
+                </AccordionButton>
+              </h2>
+              <AccordionPanel>{item.answer}</AccordionPanel>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </Accordion>
     </Flex>
   );
