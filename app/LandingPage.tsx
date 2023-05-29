@@ -11,17 +11,13 @@ import {
   ModalHeader,
   ModalBody,
   ModalCloseButton,
+  useDisclosure,
+  ModalFooter,
 } from "@chakra-ui/react";
 
 const LandingPage = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const handleOpen = () => {
-    setIsOpen(true);
-  };
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
   return (
     <Flex
       direction="column"
@@ -66,19 +62,19 @@ const LandingPage = () => {
           rounded="sm"
           variant="outline"
           rightIcon={<EditIcon />}
-          onClick={handleOpen}
+          onClick={onOpen}
         >
           Create Ticket
         </Button>
-        <Modal isOpen={isOpen} onClose={handleClose}>
+        <Modal onClose={onClose} isOpen={isOpen} isCentered>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>My Modal</ModalHeader>
+            <ModalHeader>Modal Title</ModalHeader>
             <ModalCloseButton />
-            <ModalBody>
-              {/* Add your modal content here */}
-              <p>This is the content of the modal.</p>
-            </ModalBody>
+            <ModalBody></ModalBody>
+            <ModalFooter>
+              <Button onClick={onClose}>Close</Button>
+            </ModalFooter>
           </ModalContent>
         </Modal>
       </Box>
