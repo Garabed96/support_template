@@ -9,7 +9,7 @@ const LoginWithDiscordButton: React.FC = memo(({}) => {
 
   return user ? null : (
     <Button
-      w="full"
+      w="100%"
       rounded="sm"
       variant="outline"
       rightIcon={<ArrowForwardIcon />}

@@ -14,6 +14,7 @@ import {
   useDisclosure,
   ModalFooter,
 } from "@chakra-ui/react";
+import LoginWithDiscordButton from "@/app/components/buttons/LoginWithDiscordButton";
 
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -66,14 +67,32 @@ const LandingPage = () => {
         >
           Create Ticket
         </Button>
-        <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <Modal
+          isCentered
+          onClose={onClose}
+          isOpen={isOpen}
+          motionPreset="slideInBottom"
+        >
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
             <ModalCloseButton />
-            <ModalBody></ModalBody>
-            <ModalFooter>
-              <Button onClick={onClose}>Close</Button>
+            <ModalHeader mt="8">
+              <div align="center">
+                <Text as="span" color="green.400">
+                  Authenticate
+                </Text>{" "}
+                through{" "}
+                <Text as="span" color="green.400">
+                  Discord
+                </Text>{" "}
+                to create a{" "}
+                <Text as="span" color="green.400">
+                  Ticket
+                </Text>
+              </div>
+            </ModalHeader>
+            <ModalFooter mx="8" mb="8">
+              <LoginWithDiscordButton width="100px" />
             </ModalFooter>
           </ModalContent>
         </Modal>
