@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@chakra-ui/button";
 import { EditIcon } from "@chakra-ui/icons";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 
 const LandingPage = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   return (
     <Flex
       direction="column"
@@ -33,17 +49,38 @@ const LandingPage = () => {
         a ticket to get personalized support.
       </Text>
       <Box w="50%" rounded="md" variant="outline" textAlign="center">
-        <Link href="/ticket">
-          <Button
-            w="50%"
-            _hover={{ bg: "green.400" }}
-            rounded="sm"
-            variant="outline"
-            rightIcon={<EditIcon />}
-          >
-            Create Ticket
-          </Button>
-        </Link>
+        {/*<Link href="/ticket">*/}
+        {/*  <Button*/}
+        {/*    w="50%"*/}
+        {/*    _hover={{ bg: "green.400" }}*/}
+        {/*    rounded="sm"*/}
+        {/*    variant="outline"*/}
+        {/*    rightIcon={<EditIcon />}*/}
+        {/*  >*/}
+        {/*    Create Ticket*/}
+        {/*  </Button>*/}
+        {/*</Link>        */}
+        <Button
+          w="50%"
+          _hover={{ bg: "green.400" }}
+          rounded="sm"
+          variant="outline"
+          rightIcon={<EditIcon />}
+          onClick={handleOpen}
+        >
+          Create Ticket
+        </Button>
+        <Modal isOpen={isOpen} onClose={handleClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>My Modal</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              {/* Add your modal content here */}
+              <p>This is the content of the modal.</p>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </Box>
     </Flex>
   );
