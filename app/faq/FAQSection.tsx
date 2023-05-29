@@ -34,7 +34,12 @@ const FaqSection = () => {
         {faq_data.map((faq, index) => (
           <AccordionItem key={index}>
             <h2>
-              <AccordionButton textAlign="left">{faq.question}</AccordionButton>
+              <AccordionButton
+                textAlign="left"
+                _expanded={{ bg: "blue.900", color: "white" }}
+              >
+                {faq.question}
+              </AccordionButton>
             </h2>
             <AccordionPanel whiteSpace="pre-line">
               {faq.answer.replace(/\d+/g, (match) =>
