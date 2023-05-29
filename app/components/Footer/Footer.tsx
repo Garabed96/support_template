@@ -20,7 +20,6 @@ function Footer(props) {
       bottom={0}
       borderTop="2px solid"
       borderColor="whiteAlpha.200"
-      bgColor={bgColor}
       zIndex={999}
       align="center" // Align children vertically center
     >

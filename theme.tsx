@@ -1,12 +1,11 @@
-// 1. Import the extendTheme function
-import { extendTheme, theme as base } from "@chakra-ui/react";
-import "@fontsource/oswald";
+import { extendTheme } from "@chakra-ui/react";
+import { theme as base } from "@chakra-ui/react";
 const config = {
   initialColorMode: "dark",
   useSystemColorMode: true,
 };
 
-export default extendTheme({
+const theme = extendTheme({
   fonts: {
     heading: `'Oswald', ${base.fonts?.heading}`,
     body: `'Oswald', ${base.fonts?.body}`,
@@ -19,3 +18,5 @@ export default extendTheme({
     },
   },
 });
+
+export default theme;

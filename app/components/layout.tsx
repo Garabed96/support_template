@@ -1,11 +1,8 @@
 import React from "react";
-// import NavBar from "./Header/NavBar";
-// import Footer from "./Footer/Footer";
-import { Box, Flex, Text, Spacer } from "@chakra-ui/react";
-import dynamic from "next/dynamic";
-import { useColorModeValue } from "@chakra-ui/color-mode";
-const NavBar = dynamic(() => import("./Header/NavBar"));
-const Footer = dynamic(() => import("./Footer/Footer"));
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import theme from "@/theme";
+import NavBar from "./Header/NavBar";
+import Footer from "./Footer/Footer";
 
 export default function ComponentsLayout({
   children,
