@@ -12,7 +12,6 @@ import React, { memo, useEffect, useState } from "react";
 import { Tooltip } from "@chakra-ui/tooltip";
 
 const appVersion = require("../../../package.json").version;
-const MyTooltip = dynamic(() => import("../Tooltips/MyTooltip"));
 
 function Footer(props) {
   const textColor = useColorModeValue("gray.900", "white");
@@ -29,7 +28,7 @@ function Footer(props) {
       zIndex={999}
     >
       <Text color={textColor}>v{appVersion}</Text>
-      <MyTooltip label="Join our Discord!" hasArrow>
+      <Tooltip label="Join our Discord!" hasArrow>
         <IconButton
           aria-label="Discord Button"
           rounded="full"
@@ -37,8 +36,8 @@ function Footer(props) {
           icon={<RiDiscordFill />}
           onClick={() => window.open("", "_blank")}
         />
-      </MyTooltip>
-      <MyTooltip label="Follow us on Twitter!" hasArrow>
+      </Tooltip>
+      <Tooltip label="Follow us on Twitter!" hasArrow>
         <IconButton
           ml={2}
           aria-label="Twitter Button"
@@ -47,7 +46,7 @@ function Footer(props) {
           icon={<AiFillTwitterCircle />}
           onClick={() => window.open("", "_blank")}
         />
-      </MyTooltip>
+      </Tooltip>
     </Flex>
   );
 }
