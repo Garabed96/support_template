@@ -1,6 +1,5 @@
 import React from "react";
 import { Image } from "@chakra-ui/image";
-import ordLogo from "../../../public/logos/primary-logo.svg";
 import Link from "next/link";
 import { Button } from "@chakra-ui/button";
 import { Flex, Spacer, Box, Heading, ButtonGroup } from "@chakra-ui/react";
@@ -10,7 +9,7 @@ function NavBar() {
   return (
     <Flex minWidth="max-content" alignItems="center" gap="2" py="2">
       <Box px="4">
-        <Heading size="md">
+        <Heading>
           <Link href="/">
             <Image src={"/logos/primary-logo.svg"} maxW={110} alt="logo" />
           </Link>
@@ -22,7 +21,7 @@ function NavBar() {
           <Link href="/faq">
             <Button
               w="full"
-              rounded="md"
+              rounded="sm"
               variant="outline"
               rightIcon={<QuestionIcon />}
             >
@@ -32,7 +31,7 @@ function NavBar() {
         </Box>
         <Button
           w="full"
-          rounded="md"
+          rounded="sm"
           variant="outline"
           rightIcon={<ArrowForwardIcon />}
         >

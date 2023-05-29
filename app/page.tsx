@@ -1,12 +1,13 @@
 "use client";
-import Image from "next/image";
 import Layout from "./components/layout";
 import React from "react";
-
+import LandingPage from "./LandingPage";
 export default function Home() {
   return (
     <main>
-      <Layout>Home Page</Layout>
+      <Layout>
+        <LandingPage />
+      </Layout>
     </main>
   );
 }
