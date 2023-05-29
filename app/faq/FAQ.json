@@ -17,7 +17,7 @@
   },
   {
     "question": "What information do I need to provide when submitting a refund ticket?",
-    "answer": "When submitting a refund ticket, please ensure that you provide the following information:\n\n- Transaction details, including transaction ID, date, and amount.\n- Your account information, such as username or email associated with the transaction.\n- A clear description of the issue or reason for the refund request."
+    "answer": "When submitting a refund ticket, please ensure that you provide the following information:\n\n1 Transaction details, including transaction ID, date, and amount.\n2 Your account information, such as username or email associated with the transaction.\n3 A clear description of the issue or reason for the refund request."
   },
   {
     "question": "What should I do if I receive an error message when trying to request a refund?",

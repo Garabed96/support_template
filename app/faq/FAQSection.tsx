@@ -36,7 +36,11 @@ const FaqSection = () => {
             <h2>
               <AccordionButton textAlign="left">{faq.question}</AccordionButton>
             </h2>
-            <AccordionPanel whiteSpace="pre-line">{faq.answer}</AccordionPanel>
+            <AccordionPanel whiteSpace="pre-line">
+              {faq.answer.replace(/\d+/g, (match) =>
+                convertToRoman(parseInt(match))
+              )}
+            </AccordionPanel>
           </AccordionItem>
         ))}
       </Accordion>
@@ -45,3 +49,20 @@ const FaqSection = () => {
 };
 
 export default FaqSection;
+
+const convertToRoman = (num) => {
+  switch (num) {
+    case 1:
+      return "I";
+    case 2:
+      return "II";
+    case 3:
+      return "III";
+    case 4:
+      return "IV";
+    case 5:
+      return "V";
+    default:
+      return num;
+  }
+};
