@@ -15,9 +15,8 @@ const FaqSection = () => {
       direction="column"
       align="center"
       justify="center"
-      minHeight="100vh"
-      padding="2rem"
-      pb="10rem"
+      minHeight="90vh"
+      py="10rem"
     >
       <Heading as="h1" size="xl" marginBottom="1rem">
         Frequently Asked Questions
@@ -25,7 +24,13 @@ const FaqSection = () => {
       <Text fontSize="lg" color="gray.600" marginBottom="2rem">
         Find answers to common questions about our refunding process.
       </Text>{" "}
-      <Accordion allowMultiple maxW="600px">
+      <Accordion
+        allowMultiple
+        border="transparent"
+        boxShadow="dark-lg"
+        maxW="600px"
+        border="1px #808080"
+      >
         {faq_data.map((item, index) => (
           <AccordionItem key={index} w="full">
             <h2>
@@ -33,8 +38,13 @@ const FaqSection = () => {
                 _expanded={{ bg: "blue.900", color: "white" }}
                 textAlign="left"
               >
-                <Text fontStyle="italic">
-                  {index + 1}. {item.question}
+                <Text fontStyle="italic" whiteSpace="pre-line">
+                  {index + 1}.{" "}
+                  <span
+                    dangerouslySetInnerHTML={{
+                      __html: item.question.replace(/\n/g, "<br />"),
+                    }}
+                  />
                 </Text>
               </AccordionButton>
             </h2>
