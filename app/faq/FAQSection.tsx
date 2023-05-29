@@ -25,11 +25,11 @@ const FaqSection = () => {
         Find answers to common questions about our refunding process.
       </Text>{" "}
       <Accordion allowToggle>
-        <Accordion allowToggle>
+        <Accordion allowToggle maxW="600px">
           {faq_data.map((item, index) => (
             <AccordionItem key={index} w="full">
               <h2>
-                <AccordionButton>
+                <AccordionButton textAlign="left">
                   {index + 1}. {item.question}
                 </AccordionButton>
               </h2>
