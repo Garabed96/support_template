@@ -3,8 +3,8 @@
 import { Inter } from "next/font/google";
 import Head from "./head";
 import { ChakraProvider } from "@chakra-ui/react";
-import NavBar from "./components/header/NavBar";
-import Footer from "./components/footer/footer";
+import NavBar from "./components/Header/NavBar";
+import Footer from "./components/Footer/Footer";
 import React from "react";
 
 const inter = Inter({ subsets: ["latin"] });

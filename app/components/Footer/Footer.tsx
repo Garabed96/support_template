@@ -12,25 +12,24 @@ import React, { memo, useEffect, useState } from "react";
 import { Tooltip } from "@chakra-ui/tooltip";
 
 const appVersion = require("../../../package.json").version;
+const MyTooltip = dynamic(() => import("../Tooltips/MyTooltip"));
 
 function Footer(props) {
   const textColor = useColorModeValue("gray.900", "white");
+  const bgColor = useColorModeValue("white", "black");
   return (
     <Flex
-      as="footer"
-      position="fixed"
-      bottom="0"
-      left="0"
-      right="0"
-      justifyContent="center"
-      alignItems="center"
-      gap="6"
-      py="4"
-      bg={useColorModeValue("white", "gray.800")}
-      zIndex="9999"
+      w="full"
+      p={2}
+      pos="fixed"
+      bottom={0}
+      borderTop="2px solid"
+      borderColor="whiteAlpha.200"
+      bgColor={bgColor}
+      zIndex={999}
     >
       <Text color={textColor}>v{appVersion}</Text>
-      <Tooltip label="Join our Discord!" hasArrow>
+      <MyTooltip label="Join our Discord!" hasArrow>
         <IconButton
           aria-label="Discord Button"
           rounded="full"
@@ -38,8 +37,8 @@ function Footer(props) {
           icon={<RiDiscordFill />}
           onClick={() => window.open("", "_blank")}
         />
-      </Tooltip>
-      <Tooltip label="Follow us on Twitter!" hasArrow>
+      </MyTooltip>
+      <MyTooltip label="Follow us on Twitter!" hasArrow>
         <IconButton
           ml={2}
           aria-label="Twitter Button"
@@ -48,7 +47,7 @@ function Footer(props) {
           icon={<AiFillTwitterCircle />}
           onClick={() => window.open("", "_blank")}
         />
-      </Tooltip>
+      </MyTooltip>
     </Flex>
   );
 }
