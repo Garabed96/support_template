@@ -1,14 +1,10 @@
 import { IconButton } from "@chakra-ui/button";
 import { useColorModeValue } from "@chakra-ui/color-mode";
 import { Icon } from "@chakra-ui/icon";
-import { Center, Flex, Spacer, Text } from "@chakra-ui/layout";
-import { Spinner } from "@chakra-ui/spinner";
-import { AiFillTwitterCircle } from "@react-icons/all-files/ai/AiFillTwitterCircle";
-import { FaBitcoin } from "@react-icons/all-files/fa/FaBitcoin";
+import { Flex, Text } from "@chakra-ui/layout";
 import { RiDiscordFill } from "@react-icons/all-files/ri/RiDiscordFill";
-import axios from "axios";
-import dynamic from "next/dynamic";
-import React, { memo, useEffect, useState } from "react";
+import { AiFillTwitterCircle } from "@react-icons/all-files/ai/AiFillTwitterCircle";
+import React from "react";
 import { Tooltip } from "@chakra-ui/tooltip";
 
 const appVersion = require("../../../package.json").version;
@@ -26,6 +22,7 @@ function Footer(props) {
       borderColor="whiteAlpha.200"
       bgColor={bgColor}
       zIndex={999}
+      align="center" // Align children vertically center
     >
       <Text color={textColor}>v{appVersion}</Text>
       <Tooltip label="Join our Discord!" hasArrow>
