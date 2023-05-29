@@ -7,6 +7,8 @@
 .idea
 # testing
 /coverage
+.env.local
+/app/config.ts
 
 # next.js
 /.next/

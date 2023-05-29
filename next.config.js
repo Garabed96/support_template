@@ -1,7 +1,19 @@
 module.exports = {
-  cssModules: true,
-  cssLoaderOptions: {
-    importLoaders: 1,
-    localIdentName: "[]",
+  experimental: {
+    turbo: {
+      loaders: {
+        // Option format
+        ".md": [
+          {
+            loader: "@mdx-js/loader",
+            options: {
+              format: "md",
+            },
+          },
+        ],
+        // Option-less format
+        ".mdx": ["@mdx-js/loader"],
+      },
+    },
   },
 };
