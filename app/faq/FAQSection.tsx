@@ -31,24 +31,12 @@ const FaqSection = () => {
         maxW="600px"
         border="1px #808080"
       >
-        {faq_data.map((item, index) => (
-          <AccordionItem key={index} w="full">
+        {faq_data.map((faq, index) => (
+          <AccordionItem key={index}>
             <h2>
-              <AccordionButton
-                _expanded={{ bg: "blue.900", color: "white" }}
-                textAlign="left"
-              >
-                <Text fontStyle="italic" whiteSpace="pre-line">
-                  {index + 1}.{" "}
-                  <span
-                    dangerouslySetInnerHTML={{
-                      __html: item.question.replace(/\n/g, "<br />"),
-                    }}
-                  />
-                </Text>
-              </AccordionButton>
+              <AccordionButton textAlign="left">{faq.question}</AccordionButton>
             </h2>
-            <AccordionPanel>{item.answer}</AccordionPanel>
+            <AccordionPanel whiteSpace="pre-line">{faq.answer}</AccordionPanel>
           </AccordionItem>
         ))}
       </Accordion>
