@@ -3,11 +3,15 @@ import {
   Flex,
   Heading,
   Text,
+  Select,
   Box,
   Button,
   FormControl,
   FormLabel,
+  FormHelperText,
+  FormErrorMessage,
   Input,
+  Textarea,
 } from "@chakra-ui/react";
 const TicketForm = () => {
   const [formData, setFormData] = useState({
@@ -38,6 +42,8 @@ const TicketForm = () => {
       hashcode: "",
     });
   };
+  const [input, setInput] = useState("");
+  const isError = input === "";
 
   return (
     <Flex
@@ -69,7 +75,7 @@ const TicketForm = () => {
       </Text>
       <Box width="400px" boxShadow="dark-lg" p={4} rounded="md">
         <form onSubmit={handleSubmit}>
-          <FormControl id="email" my={4}>
+          <FormControl id="email" my={4} isRequired>
             <FormLabel>Email</FormLabel>
             <Input
               type="email"
@@ -81,7 +87,7 @@ const TicketForm = () => {
             />
           </FormControl>
 
-          <FormControl id="name" my={4}>
+          <FormControl id="name" my={4} isRequired>
             <FormLabel>Name</FormLabel>
             <Input
               type="text"
@@ -91,9 +97,16 @@ const TicketForm = () => {
               placeholder="Enter your name"
               required
             />
+            {!isError ? (
+              <FormHelperText>
+                Enter the email you'd like to receive the newsletter on.
+              </FormHelperText>
+            ) : (
+              <FormErrorMessage>Email is required.</FormErrorMessage>
+            )}
           </FormControl>
 
-          <FormControl id="discordAccount" my={4}>
+          <FormControl id="discordAccount" my={4} isRequired>
             <FormLabel>Discord Account</FormLabel>
             <Input
               type="text"
@@ -105,7 +118,7 @@ const TicketForm = () => {
             />
           </FormControl>
 
-          <FormControl id="refId" my={4}>
+          <FormControl id="refId" my={4} isRequired>
             <FormLabel>Ref ID</FormLabel>
             <Input
               type="text"
@@ -117,7 +130,7 @@ const TicketForm = () => {
             />
           </FormControl>
 
-          <FormControl id="hashcode" my={4}>
+          <FormControl id="hashcode" my={4} isRequired>
             <FormLabel>Eth or BTC Hash Code</FormLabel>
             <Input
               type="text"
@@ -128,15 +141,35 @@ const TicketForm = () => {
               required
             />
           </FormControl>
-
-          <Button
-            type="submit"
-            colorScheme="green"
-            _hover={{ bg: "green.400" }}
-            mt={8}
-          >
-            Submit
-          </Button>
+          <FormControl isRequired>
+            <FormLabel>Ticket Type</FormLabel>
+            <Select placeholder="Select an option">
+              <option value="status-update">Status Update</option>
+              <option value="status-update">Billing Inquiry</option>
+              <option value="status-update">Technical Issue</option>
+              <option value="status-update">Feedback</option>
+              <option value="refund">Refund</option>
+              <option value="status-update">Other</option>
+            </Select>
+          </FormControl>
+          <Textarea
+            placeholder="Write a personalized message to the support team here"
+            size="lg"
+            borderRadius="md"
+            focusBorderColor="green.400"
+            _placeholder={{ color: "gray.400" }}
+            mt={4}
+          />
+          <Flex justify="flex-end">
+            <Button
+              type="submit"
+              colorScheme="green"
+              _hover={{ bg: "green.400" }}
+              mt={8}
+            >
+              Submit
+            </Button>
+          </Flex>
         </form>
       </Box>
     </Flex>
