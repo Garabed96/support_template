@@ -1,6 +1,10 @@
 import React from "react";
-import NavBar from "./header/NavBar";
-import Footer from "./Footer/Footer";
+// import NavBar from "./header/NavBar";
+// import Footer from "./Footer/Footer";
+import { Box, Flex } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+const NavBar = dynamic(() => import("./header/NavBar"));
+const Footer = dynamic(() => import("./Footer/Footer"));
 
 export default function ComponentsLayout({
   children,
@@ -8,11 +12,10 @@ export default function ComponentsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <section>
-      {/* Include shared UI here e.g. a header or sidebar */}
+    <Flex direction="column" minHeight="80vh">
       <NavBar />
-      {children}
+      <Box flex="1">{children}</Box>
       <Footer />
-    </section>
+    </Flex>
   );
 }
