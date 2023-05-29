@@ -13,25 +13,10 @@ export default function ComponentsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <Flex>
+    <div>
       <NavBar />
-      <Box flex="1">{children}</Box>
-      <Flex
-        as="footer"
-        position="fixed"
-        bottom="0"
-        left="0"
-        right="0"
-        justifyContent="right"
-        alignItems="center"
-        gap="6"
-        py="4"
-        px="12"
-        bg={useColorModeValue("white", "gray.800")}
-        zIndex="9999"
-      >
-        <Footer />
-      </Flex>
-    </Flex>
+      {children}
+      <Footer />
+    </div>
   );
 }
