@@ -23,6 +23,7 @@ function NavBar() {
               w="full"
               rounded="sm"
               variant="outline"
+              _hover={{ bg: "blue.900" }}
               rightIcon={<QuestionIcon />}
             >
               FAQ
@@ -33,6 +34,7 @@ function NavBar() {
           w="full"
           rounded="sm"
           variant="outline"
+          _hover={{ bg: "green.900" }}
           rightIcon={<ArrowForwardIcon />}
         >
           Login with Discord

@@ -34,7 +34,7 @@ const LandingPage = () => {
         a ticket to get personalized support.
       </Text>
       <Box w="50%" rounded="md" variant="outline" textAlign="center">
-        <Link href="/faq">
+        <Link href="/ticket">
           <Button
             w="50%"
             _hover={{ bg: "green.400" }}
