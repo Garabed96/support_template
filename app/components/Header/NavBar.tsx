@@ -1,7 +1,6 @@
 import React from "react";
 import { Image } from "@chakra-ui/image";
 import ordLogo from "../../../public/logos/primary-logo.svg";
-import { Center } from "@chakra-ui/layout";
 import { Button } from "@chakra-ui/button";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
@@ -9,9 +8,7 @@ function NavBar() {
   return (
     <React.Fragment>
       <nav>
-        <Center>
-          <Image src={"/logos/primary-logo.svg"} maxW={110} alt="logo" />
-        </Center>{" "}
+        <Image src={"/logos/primary-logo.svg"} maxW={110} alt="logo" />
         <Button
           w="full"
           rounded="sm"

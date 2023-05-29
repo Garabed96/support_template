@@ -1,8 +1,9 @@
 "use client";
-// import "./globals.css";
+import "./globals.css";
 import { Inter } from "next/font/google";
 import Head from "./head";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import theme from "./../theme";
 import NavBar from "./components/Header/NavBar";
 import Footer from "./components/Footer/Footer";
 import React from "react";
@@ -20,7 +21,11 @@ export default function RootLayout({
     <html lang="en">
       <Head />
       <body className={inter.className}>
-        <ChakraProvider>{children}</ChakraProvider>
+        <ChakraProvider theme={theme}>
+          <ColorModeScript initialColorMode="dark" />
+
+          {children}
+        </ChakraProvider>
       </body>
     </html>
   );
