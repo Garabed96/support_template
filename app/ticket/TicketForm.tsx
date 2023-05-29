@@ -50,8 +50,8 @@ const TicketForm = () => {
       direction="column"
       align="center"
       justify="center"
-      minHeight="90vh"
-      py="10rem"
+      minHeight="100vh"
+      pb="4rem"
     >
       <Heading as="h2" size="lg" marginBottom="1rem">
         Create Support Ticket
