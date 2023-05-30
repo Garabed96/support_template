@@ -21,10 +21,6 @@ const LandingPage = () => {
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
 
-  const [username, setUsername] = useState<string | null>(null);
-  const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
-  const user = useUser();
-
   return (
     <Flex
       direction="column"
