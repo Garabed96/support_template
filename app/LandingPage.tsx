@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,6 +18,12 @@ import LoginWithDiscordButton from "@/app/components/buttons/LoginWithDiscordBut
 
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
+  // const supabase = useSupabaseClient();
+
+  const [username, setUsername] = useState<string | null>(null);
+  const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
+  const user = useUser();
 
   return (
     <Flex
