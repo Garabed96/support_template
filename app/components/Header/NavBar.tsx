@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Image } from "@chakra-ui/image";
+import { useBreakpointValue } from "@chakra-ui/media-query";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
+import { ChevronDownIcon, Icon } from "@chakra-ui/icons";
+import { Avatar } from "@chakra-ui/avatar";
 import Link from "next/link";
 import { Button } from "@chakra-ui/button";
 import {
@@ -9,6 +13,8 @@ import {
   Heading,
   ButtonGroup,
   useDisclosure,
+  Divider,
+  Text,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
 import LoginWithDiscordButton from "@/app/components/buttons/LoginWithDiscordButton";
@@ -84,12 +90,8 @@ const NavBar = () => {
                 <i>signed in as: {username}</i>
               </Text>
               <Divider mb={2} />
-              <MenuItem bgColor="black" onClick={() => console.log("ACCOUNT")}>
-                <MdAccountBalance />
-                <Text ml={2}>Your Account</Text>
-              </MenuItem>
               <MenuItem bgColor="black" onClick={() => console.log("SIGN OUT")}>
-                <GoSignOut />
+                Sign Out
                 <Text ml={2}>Sign Out</Text>
               </MenuItem>
             </MenuList>
