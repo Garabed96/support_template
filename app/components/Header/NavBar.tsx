@@ -19,7 +19,12 @@ const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
-
+  const variant = useBreakpointValue({
+    sm: "sm",
+    md: "md",
+    lg: "lg",
+    xl: "xl",
+  });
   const [username, setUsername] = useState<string | null>(null);
   const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
   const user = useUser();
@@ -79,14 +84,11 @@ const NavBar = () => {
                 <i>signed in as: {username}</i>
               </Text>
               <Divider mb={2} />
-              <MenuItem
-                bgColor="black"
-                onClick={() => router.push(`/ordbank/account`)}
-              >
+              <MenuItem bgColor="black" onClick={() => console.log("ACCOUNT")}>
                 <MdAccountBalance />
                 <Text ml={2}>Your Account</Text>
               </MenuItem>
-              <MenuItem bgColor="black" onClick={signOut}>
+              <MenuItem bgColor="black" onClick={() => console.log("SIGN OUT")}>
                 <GoSignOut />
                 <Text ml={2}>Sign Out</Text>
               </MenuItem>
