@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useState } from "react";
 import { Image } from "@chakra-ui/image";
 import { useBreakpointValue } from "@chakra-ui/media-query";
@@ -20,8 +21,14 @@ import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
 import LoginWithDiscordButton from "@/app/components/buttons/LoginWithDiscordButton";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { isMobile } from "../utils/screen/conditions";
-
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+//https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-5-migrating-routing-hooks
 const NavBar = () => {
+  const supabase = createClientComponentClient();
+  const pathname = useSearchParams();
+  const returnUrl = pathname;
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
@@ -38,7 +45,20 @@ const NavBar = () => {
   useEffect(() => {
     setUsername(user?.user_metadata?.name);
     setUserAvatar(user?.user_metadata?.avatar_url);
+
+    console.log("user:", user);
   }, [user]);
+
+  const signInWithDiscord = () =>
+    supabase.auth.signInWithOAuth({
+      provider: "discord",
+      options: {
+        redirectTo: `${
+          process.env.NEXT_PUBLIC_FRONTEND_URL
+        }/auth?returnUrl=${returnUrl.getAll()}`,
+        scopes: "identify guilds email",
+      },
+    });
 
   return (
     <Flex minWidth="max-content" alignItems="center" gap="2" py="2">
@@ -97,7 +117,15 @@ const NavBar = () => {
             </MenuList>
           </Menu>
         ) : (
-          <LoginWithDiscordButton />
+          <Button
+            fontSize="sm"
+            fontWeight="normal"
+            rounded="small"
+            variant="outline"
+            onClick={signInWithDiscord}
+          >
+            Login with Discord
+          </Button>
         )}
       </ButtonGroup>
     </Flex>

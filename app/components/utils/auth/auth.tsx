@@ -1,25 +1,24 @@
+"use client";
 import { Heading, Text, VStack } from "@chakra-ui/layout";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import axios from "axios";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { useGetStringId } from "../router/useGetStringId";
 
 const LoginWithDiscordButton = dynamic(
-  () => import("../../buttons/LoginWithDiscordButton"),
-  {
-    ssr: false,
-  }
+  () => import("../../buttons/LoginWithDiscordButton")
 );
 
 const Redirect: React.FC = ({}) => {
-  const router = useRouter();
+  const pathname = usePathname();
   const supabase = useSupabaseClient();
-  const returnUrl = useGetStringId(router.query.returnUrl);
+  const returnUrl = useGetStringId(pathname);
   const user = useUser();
-
+  const router = useRouter();
   useEffect(() => {
+    console.log("DOES AUTH RUN?");
     if (user?.user_metadata) {
       supabase
         .from("user")
