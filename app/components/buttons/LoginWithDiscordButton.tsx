@@ -1,11 +1,15 @@
 import { Button } from "@chakra-ui/button";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import React, { memo } from "react";
 import supabase from "@/app/components/utils/supabase";
 const LoginWithDiscordButton: React.FC = memo(({}) => {
+  const pathname = usePathname();
+  const supabase = useSupabaseClient();
   const user = useUser();
+
+  const returnUrl = pathname;
 
   return user ? null : (
     <Button
@@ -18,7 +22,7 @@ const LoginWithDiscordButton: React.FC = memo(({}) => {
         supabase.auth.signInWithOAuth({
           provider: "discord",
           options: {
-            redirectTo: `${process.env.NEXT_PUBLIC_FRONTEND_URL}`,
+            redirectTo: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth?returnUrl=${returnUrl}`,
             scopes: "identify guilds email",
           },
         })
