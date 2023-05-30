@@ -3,10 +3,10 @@ import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { usePathname } from "next/navigation";
 import React, { memo } from "react";
-import supabase from "@/app/components/utils/supabase";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 const LoginWithDiscordButton: React.FC = memo(({}) => {
   const pathname = usePathname();
-  const supabase = useSupabaseClient();
+  const supabase = createClientComponentClient();
   const user = useUser();
 
   const returnUrl = pathname;
