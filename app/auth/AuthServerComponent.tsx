@@ -5,12 +5,10 @@ import dynamic from "next/dynamic";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { useGetStringId } from "../components/utils/router/useGetStringId";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const LoginWithDiscordButton = dynamic(
-  () => import("../components/Buttons/LoginWithDiscordButton"),
-  {
-    ssr: false,
-  }
+  () => import("../components/Buttons/LoginWithDiscordButton")
 );
 
 const AuthServerRedirect: React.FC = ({}) => {
@@ -19,6 +17,7 @@ const AuthServerRedirect: React.FC = ({}) => {
   const searchParams = useSearchParams();
   const returnUrl = pathname + searchParams.toString();
   const user = useUser();
+  const supabase = createClientComponentClient();
 
   useEffect(() => {
     if (user?.user_metadata) {
@@ -32,7 +31,7 @@ const AuthServerRedirect: React.FC = ({}) => {
           },
           { onConflict: "discord_id" }
         )
-        .select("ref_id")
+        .select("user_id")
         .single()
         .then(({ data, error }) => {
           if (error || !data) {
@@ -43,19 +42,6 @@ const AuthServerRedirect: React.FC = ({}) => {
           }
 
           return data;
-        })
-        .then(async (user: any) => {
-          try {
-            await axios.post("/api/ordbank/account/create", {
-              id: user.ref_id,
-            });
-          } catch (error) {
-            console.error(error);
-          }
-
-          if (returnUrl) {
-            router.replace(returnUrl);
-          }
         });
     }
   }, [user, returnUrl]);

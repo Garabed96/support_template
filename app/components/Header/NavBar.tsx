@@ -51,19 +51,6 @@ const NavBar = () => {
     console.log("user:", user);
   }, [user]);
 
-  const redirectUrl = `${
-    process.env.NEXT_PUBLIC_FRONTEND_URL
-  }/auth?returnUrl=${encodeURIComponent(returnUrl)}`;
-
-  const signInWithDiscord = () =>
-    supabase.auth.signInWithOAuth({
-      provider: "discord",
-      options: {
-        redirectTo: redirectUrl,
-        scopes: "identify guilds email",
-      },
-    });
-
   return (
     <Flex minWidth="max-content" alignItems="center" gap="2" py="2">
       <Box px="4">
@@ -126,7 +113,9 @@ const NavBar = () => {
             fontWeight="normal"
             rounded="small"
             variant="outline"
-            onClick={signInWithDiscord}
+            onClick={() => {
+              console.log("SIGN IN?");
+            }}
           >
             Login with Discord
           </Button>

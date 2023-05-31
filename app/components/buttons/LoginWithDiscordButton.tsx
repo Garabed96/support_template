@@ -12,6 +12,16 @@ const LoginWithDiscordButton: React.FC = memo(({}) => {
   const supabase = createClientComponentClient();
   const user = useUser();
   console.log("DISCORD USER", user);
+
+  const signInWithDiscord = () =>
+    supabase.auth.signInWithOAuth({
+      provider: "discord",
+      options: {
+        redirectTo: redirectUrl,
+        scopes: "identify guilds email",
+      },
+    });
+
   return user ? null : (
     <Button
       w="100%"
@@ -23,9 +33,7 @@ const LoginWithDiscordButton: React.FC = memo(({}) => {
         supabase.auth.signInWithOAuth({
           provider: "discord",
           options: {
-            redirectTo: `${
-              process.env.NEXT_PUBLIC_FRONTEND_URL
-            }/auth?returnUrl=${encodeURIComponent(returnUrl)}`,
+            redirectTo: redirectUrl,
             scopes: "identify guilds",
           },
         })

@@ -1,3 +1,4 @@
+// DOCS: https://supabase.com/docs/guides/auth/auth-helpers/nextjs?utm_source=youtube&utm_medium=referral&utm_campaign=nextjs-supabase
 "use client";
 import { Heading, Text, VStack } from "@chakra-ui/layout";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
