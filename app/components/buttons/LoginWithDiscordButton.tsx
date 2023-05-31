@@ -2,15 +2,16 @@
 import { Button } from "@chakra-ui/button";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useUser } from "@supabase/auth-helpers-react";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React, { memo } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 const LoginWithDiscordButton: React.FC = memo(({}) => {
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const returnUrl = pathname + searchParams.toString();
   const supabase = createClientComponentClient();
   const user = useUser();
   console.log("DISCORD USER", user);
-  const returnUrl = pathname;
   return user ? null : (
     <Button
       w="100%"
@@ -22,7 +23,9 @@ const LoginWithDiscordButton: React.FC = memo(({}) => {
         supabase.auth.signInWithOAuth({
           provider: "discord",
           options: {
-            // redirectTo: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth?returnUrl=${returnUrl}`,
+            redirectTo: `${
+              process.env.NEXT_PUBLIC_FRONTEND_URL
+            }/auth?returnUrl=${encodeURIComponent(returnUrl)}`,
             scopes: "identify guilds",
           },
         })

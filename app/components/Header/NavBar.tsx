@@ -26,9 +26,14 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 //https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-5-migrating-routing-hooks
 const NavBar = () => {
   const supabase = createClientComponentClient();
-  const pathname = useSearchParams();
-  const returnUrl = pathname;
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const returnUrl = pathname + searchParams.toString();
+  const redirectUrl = `${
+    process.env.NEXT_PUBLIC_FRONTEND_URL
+  }/auth?returnUrl=${encodeURIComponent(returnUrl)}`;
 
+  console.log("returnUrl", returnUrl);
   const { isOpen, onOpen, onClose } = useDisclosure();
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
@@ -53,9 +58,7 @@ const NavBar = () => {
     supabase.auth.signInWithOAuth({
       provider: "discord",
       options: {
-        redirectTo: `${
-          process.env.NEXT_PUBLIC_FRONTEND_URL
-        }/auth?returnUrl=${returnUrl.getAll()}`,
+        redirectTo: redirectUrl,
         scopes: "identify guilds email",
       },
     });

@@ -7,10 +7,6 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { useGetStringId } from "../router/useGetStringId";
 
-const LoginWithDiscordButton = dynamic(
-  () => import("../../buttons/LoginWithDiscordButton")
-);
-
 const Redirect: React.FC = ({}) => {
   const pathname = usePathname();
   const supabase = useSupabaseClient();
@@ -46,7 +42,7 @@ const Redirect: React.FC = ({}) => {
   }, [user, returnUrl]);
 
   return (
-    <Layout title="Login Redirect" variant="small">
+    <div title="Login Redirect" variant="small">
       {user ? (
         <VStack>
           <Heading>Redirecting</Heading>
@@ -60,7 +56,7 @@ const Redirect: React.FC = ({}) => {
           <LoginWithDiscordButton />
         </VStack>
       )}
-    </Layout>
+    </div>
   );
 };
 
