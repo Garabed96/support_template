@@ -9,12 +9,11 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalBody,
   ModalCloseButton,
   useDisclosure,
   ModalFooter,
 } from "@chakra-ui/react";
-import LoginWithDiscordButton from "@/app/components/buttons/LoginWithDiscordButton";
+import { Login } from "./components/login/login";
 
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -94,7 +93,7 @@ const LandingPage = () => {
               </div>
             </ModalHeader>
             <ModalFooter mx="8" mb="8">
-              <LoginWithDiscordButton width="100px" />
+              <Login />
             </ModalFooter>
           </ModalContent>
         </Modal>

@@ -18,7 +18,6 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
-import LoginWithDiscordButton from "@/app/components/buttons/LoginWithDiscordButton";
 import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
 import { isMobile } from "../utils/screen/conditions";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
