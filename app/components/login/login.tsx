@@ -33,7 +33,7 @@ export function Login() {
       variant="outline"
       rightIcon={<ArrowForwardIcon />}
       _hover={{ bg: "green.900" }}
-      onClick={() => signInWithDiscord}
+      onClick={() => signInWithDiscord()}
     >
       Login with Discord
     </Button>

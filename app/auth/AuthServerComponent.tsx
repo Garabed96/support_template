@@ -3,7 +3,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import axios from "axios";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
-
+import { Login } from "../components/login/login";
 const AuthServerRedirect: React.FC = ({}) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -50,7 +50,7 @@ const AuthServerRedirect: React.FC = ({}) => {
       ) : (
         <VStack mt="4rem" spacing={8}>
           <Heading>You are not logged in.</Heading>
-          <LoginWithDiscordButton />
+          <Login />
         </VStack>
       )}
     </div>
