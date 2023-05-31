@@ -1,10 +1,12 @@
 import { Heading, Text, VStack } from "@chakra-ui/layout";
 import { useUser } from "@supabase/auth-helpers-react";
+import { useSupabase } from "../supabase-context";
 import axios from "axios";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { Login } from "../components/login/login";
 const AuthServerRedirect: React.FC = ({}) => {
+  const { supabase } = useSupabase();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
