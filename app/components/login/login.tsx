@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSupabase } from "../../supabase-context";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Button } from "@chakra-ui/button";
@@ -13,7 +13,7 @@ export function Login() {
   const router = useRouter();
 
   // const redirectUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth?returnUrl=${returnUrl}`;
-  const redirectUrl = `${location.origin}/auth/callback`;
+  // const redirectUrl = `${location.origin}/auth`;
   const user = useUser();
 
   const signInWithDiscord = () => {
@@ -31,7 +31,13 @@ export function Login() {
     supabase.auth.signOut();
   };
 
-  return user ? null : (
+  useEffect(() => {
+    console.log("USER UPDATE", user);
+  }, [user]);
+
+  return user ? (
+    <div>USER EXISTS: {user}</div>
+  ) : (
     <Button
       w="100%"
       rounded="sm"

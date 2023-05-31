@@ -19,17 +19,12 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
 import { useUser } from "@supabase/auth-helpers-react";
-import { isMobile } from "../utils/screen/conditions";
+import { isMobile } from "../../utils/screen/conditions";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useSupabase } from "@/app/supabase-context";
+import { Login } from "../login/login";
 //https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-5-migrating-routing-hooks
 const NavBar = () => {
-  const { supabase } = useSupabase();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const returnUrl = pathname + searchParams.toString();
-
-  console.log("returnUrl", returnUrl);
   const { isOpen, onOpen, onClose } = useDisclosure();
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
@@ -39,9 +34,11 @@ const NavBar = () => {
     lg: "lg",
     xl: "xl",
   });
+
+  const user = useUser();
+
   const [username, setUsername] = useState<string | null>(null);
   const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
-  const user = useUser();
 
   useEffect(() => {
     setUsername(user?.user_metadata?.name);
@@ -107,17 +104,8 @@ const NavBar = () => {
             </MenuList>
           </Menu>
         ) : (
-          <Button
-            fontSize="sm"
-            fontWeight="normal"
-            rounded="small"
-            variant="outline"
-            onClick={() => {
-              console.log("SIGN IN?");
-            }}
-          >
-            Login with Discord
-          </Button>
+          // <Login />
+          <button>Empty login placeholder</button>
         )}
       </ButtonGroup>
     </Flex>
