@@ -29,9 +29,6 @@ const NavBar = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const returnUrl = pathname + searchParams.toString();
-  const redirectUrl = `${
-    process.env.NEXT_PUBLIC_FRONTEND_URL
-  }/auth?returnUrl=${encodeURIComponent(returnUrl)}`;
 
   console.log("returnUrl", returnUrl);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -53,6 +50,10 @@ const NavBar = () => {
 
     console.log("user:", user);
   }, [user]);
+
+  const redirectUrl = `${
+    process.env.NEXT_PUBLIC_FRONTEND_URL
+  }/auth?returnUrl=${encodeURIComponent(returnUrl)}`;
 
   const signInWithDiscord = () =>
     supabase.auth.signInWithOAuth({
