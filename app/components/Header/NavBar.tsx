@@ -18,13 +18,13 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
-import { useSupabaseClient, useUser } from "@supabase/auth-helpers-react";
+import { useUser } from "@supabase/auth-helpers-react";
 import { isMobile } from "../utils/screen/conditions";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useSupabase } from "@/app/supabase-context";
 //https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-5-migrating-routing-hooks
 const NavBar = () => {
-  const supabase = createClientComponentClient();
+  const { supabase } = useSupabase();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const returnUrl = pathname + searchParams.toString();

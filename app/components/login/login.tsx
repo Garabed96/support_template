@@ -1,19 +1,22 @@
+"use client";
 import React from "react";
 import { useSupabase } from "../../supabase-context";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { Button } from "@chakra-ui/button";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useUser } from "@supabase/auth-helpers-react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import type { Database } from "@/lib/database.types";
 
 export function Login() {
   const { supabase } = useSupabase();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const returnUrl = pathname + searchParams.toString();
-  const redirectUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth?returnUrl=${returnUrl}`;
+  const router = useRouter();
+
+  // const redirectUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth?returnUrl=${returnUrl}`;
+  const redirectUrl = `${location.origin}/auth/callback`;
   const user = useUser();
 
-  const signInWithDiscord = () =>
+  const signInWithDiscord = () => {
     supabase.auth.signInWithOAuth({
       provider: "discord",
       options: {
@@ -21,6 +24,8 @@ export function Login() {
         scopes: "identify guilds email",
       },
     });
+    router.refresh();
+  };
 
   const signOut = () => {
     supabase.auth.signOut();

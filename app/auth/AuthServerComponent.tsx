@@ -5,6 +5,7 @@ import axios from "axios";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
 import { Login } from "../components/login/login";
+
 const AuthServerRedirect: React.FC = ({}) => {
   const { supabase } = useSupabase();
   const router = useRouter();
