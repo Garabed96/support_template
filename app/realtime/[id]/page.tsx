@@ -24,5 +24,5 @@ export default async function Post({
     console.log("NOT FOUND");
     notFound();
   }
-  return <pre>{JSON.stringify(post, null, 2)}</pre>;
+  return <div>{JSON.stringify(post, null, 2)}</div>;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import supabase from "@/app/utils/supabase";
 
 type Support_Ticket = {
@@ -20,12 +20,12 @@ type Support_Ticket = {
   user_id: string;
   is_complete: boolean;
 };
-
 export default function RealTimePosts({
   Support_Ticket,
 }: {
   Support_Ticket: Support_Ticket[];
 }) {
+  const [tickets, setTickets] = useState(Support_Ticket);
   useEffect(() => {
     const channel = supabase
       .channel("realtime tickets")
@@ -37,7 +37,7 @@ export default function RealTimePosts({
           table: "support_ticket",
         },
         (payload) => {
-          console.log({ payload });
+          setTickets([...tickets, payload.new as Support_Ticket]);
         }
       )
       .subscribe();
@@ -45,6 +45,7 @@ export default function RealTimePosts({
     return () => {
       supabase.removeChannel(channel); // Unsubscribe from the channel when the component is unmounted
     };
-  }, [supabase]);
-  return <div>{JSON.stringify(Support_Ticket, null, 2)}</div>;
+  }, [supabase, tickets, setTickets]);
+
+  return <div>{JSON.stringify(tickets, null, 2)}</div>;
 }
