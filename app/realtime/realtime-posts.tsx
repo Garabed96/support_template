@@ -28,6 +28,8 @@ type Support_Ticket = {
 //     table: "support_ticket",
 // },
 //          setTicket([...ticket, payload.new as Support_Ticket]);
+
+// example url http://localhost:3000/realtime/cb9cfc36-4441-4ab4-be60-ff176d5bb26b
 export default function RealTimeTicket({
   Support_Ticket,
 }: {

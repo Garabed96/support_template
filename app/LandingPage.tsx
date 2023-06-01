@@ -93,8 +93,8 @@ const LandingPage = () => {
               </div>
             </ModalHeader>
             <ModalFooter mx="8" mb="8">
-              {/*<Login />*/}
-              <button>Login</button>
+              <Login />
+              {/*<button>Login</button>*/}
             </ModalFooter>
           </ModalContent>
         </Modal>

@@ -12,8 +12,11 @@ export function Login() {
   const { supabase } = useSupabase();
   const router = useRouter();
 
+  // if context provider doesn't work, I can go back and use this:
+  // https://youtu.be/Bh1TOpOcGJQ?list=RDCMUCNTVzV1InxHV-YR0fSajqPQ&t=858
+
   // const redirectUrl = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth?returnUrl=${returnUrl}`;
-  // const redirectUrl = `${location.origin}/auth`;
+  const redirectUrl = `${location.origin}/auth`;
   const user = useUser();
 
   const signInWithDiscord = () => {
