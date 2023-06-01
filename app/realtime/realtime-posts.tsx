@@ -20,24 +20,32 @@ type Support_Ticket = {
   user_id: string;
   is_complete: boolean;
 };
-export default function RealTimePosts({
+
+// Filter settings for updating on INSERT
+// {
+//   event: "INSERT",
+//       schema: "public",
+//     table: "support_ticket",
+// },
+export default function RealTimeTicket({
   Support_Ticket,
 }: {
   Support_Ticket: Support_Ticket[];
 }) {
-  const [tickets, setTickets] = useState(Support_Ticket);
+  const [ticket, setTicket] = useState(Support_Ticket);
   useEffect(() => {
     const channel = supabase
       .channel("realtime tickets")
       .on(
         "postgres_changes",
         {
-          event: "INSERT",
+          event: "UPDATE",
           schema: "public",
           table: "support_ticket",
+          filter: `id=eq.${ticket.id}`,
         },
         (payload) => {
-          setTickets([...tickets, payload.new as Support_Ticket]);
+          setTicket([...ticket, payload.new as Support_Ticket]);
         }
       )
       .subscribe();
@@ -45,7 +53,7 @@ export default function RealTimePosts({
     return () => {
       supabase.removeChannel(channel); // Unsubscribe from the channel when the component is unmounted
     };
-  }, [supabase, tickets, setTickets]);
+  }, [supabase, ticket, setTicket]);
 
-  return <div>{JSON.stringify(tickets, null, 2)}</div>;
+  return <div>{JSON.stringify(ticket, null, 2)}</div>;
 }

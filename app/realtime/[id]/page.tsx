@@ -1,7 +1,7 @@
 import React from "react";
 import supabase from "@/app/utils/supabase";
 import { notFound } from "next/navigation";
-
+import RealTimeTicket from "@/app/realtime/realtime-posts";
 export const revalidate = 60;
 
 export async function generateStaticParams() {
@@ -15,14 +15,14 @@ export default async function Post({
 }: {
   params: { id: string };
 }) {
-  const { data: post } = await supabase
+  const { data: ticket } = await supabase
     .from("support_ticket")
     .select()
     .match({ id })
     .single();
-  if (!post) {
+  if (!ticket) {
     console.log("NOT FOUND");
     notFound();
   }
-  return <div>{JSON.stringify(post, null, 2)}</div>;
+  return <RealTimeTicket Support_Ticket={ticket} />;
 }
