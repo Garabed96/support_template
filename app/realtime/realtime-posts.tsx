@@ -27,6 +27,7 @@ type Support_Ticket = {
 //       schema: "public",
 //     table: "support_ticket",
 // },
+//          setTicket([...ticket, payload.new as Support_Ticket]);
 export default function RealTimeTicket({
   Support_Ticket,
 }: {
@@ -45,7 +46,7 @@ export default function RealTimeTicket({
           filter: `id=eq.${ticket.id}`,
         },
         (payload) => {
-          setTicket([...ticket, payload.new as Support_Ticket]);
+          setTicket(payload.new as Support_Ticket);
         }
       )
       .subscribe();
