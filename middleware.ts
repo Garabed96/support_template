@@ -1,14 +1,26 @@
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
-// https://supabase.com/docs/guides/auth/auth-helpers/nextjs#route-handlers
 
-// middleware.ts runs immediately before each route is rendered. Next.js only provides read access to cookies in
-// Server Components, therefore, Middleware is used to refresh the user's session before loading Server Component routes
+import type { Database } from "@/types/supabase";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
-  const supabase = createMiddlewareClient({ req, res });
-  await supabase.auth.getSession();
+  const pathname = req.nextUrl.pathname;
+
+  const supabase = createMiddlewareClient<Database>({ req, res });
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session && pathname === "/") {
+    const url = new URL(req.url);
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
+  } else {
+    console.log("wtf", session);
+  }
+
   return res;
 }

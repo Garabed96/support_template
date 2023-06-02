@@ -1,5 +1,5 @@
 import React from "react";
-import supabase from "@/app/utils/supabase";
+import supabase from "@/utils/supabase";
 import { notFound } from "next/navigation";
 
 export const revalidate = 60;

@@ -13,7 +13,6 @@ import {
   useDisclosure,
   ModalFooter,
 } from "@chakra-ui/react";
-import { Login } from "./components/login/login";
 
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -93,7 +92,9 @@ const LandingPage = () => {
               </div>
             </ModalHeader>
             <ModalFooter mx="8" mb="8">
-              <Login />
+              <Link href="/login">
+                <Button>Login?</Button>
+              </Link>
               {/*<button>Login</button>*/}
             </ModalFooter>
           </ModalContent>

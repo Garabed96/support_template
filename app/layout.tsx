@@ -1,26 +1,31 @@
-"use client";
-import { Inter } from "next/font/google";
+import "server-only";
 import Head from "./head";
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import theme from "./../theme";
-import NavBar from "./components/Header/NavBar";
-import Footer from "./components/Footer/Footer";
 import React from "react";
-import SupabaseProvider from "@/app/supabase-context";
+import SupabaseProvider from "@/components/providers/supabase-provider";
+import SupabaseAuthProvider from "@/components/providers/supabase-auth-provider";
+import { createClient } from "@/utils/supabase-browser";
+import { Inter } from "next/font/google";
 
 // Root layout is required
 // https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const supabase = createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
   return (
     <html lang="en">
       <Head />
       <body>
         <SupabaseProvider>
-          <ChakraProvider theme={theme}>{children} </ChakraProvider>
+          <SupabaseAuthProvider serverSession={session}>
+            {children}
+          </SupabaseAuthProvider>
         </SupabaseProvider>
       </body>
     </html>

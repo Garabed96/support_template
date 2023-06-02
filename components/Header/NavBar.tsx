@@ -22,7 +22,8 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { isMobile } from "../../utils/screen/conditions";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useSupabase } from "@/app/supabase-context";
-import { Login } from "../login/login";
+import { useAuth } from "../providers/supabase-auth-provider";
+
 //https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-5-migrating-routing-hooks
 const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -51,7 +52,7 @@ const NavBar = () => {
     <Flex minWidth="max-content" alignItems="center" gap="2" py="2">
       <Box px="4">
         <Heading>
-          <Link href="/">
+          <Link href="/app/static">
             <Image src={"/logos/primary-logo.svg"} maxW={110} alt="logo" />
           </Link>
         </Heading>

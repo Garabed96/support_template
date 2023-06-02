@@ -2,7 +2,7 @@
 // https://supabase.com/docs/guides/auth/auth-helpers/nextjs
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { headers, cookies } from "next/headers";
-import type { Database } from "@/lib/database.types";
+import type { Database } from "@/types/supabase";
 
 export default async function configComponent() {
   const supabase = createServerComponentClient<Database>({ cookies });

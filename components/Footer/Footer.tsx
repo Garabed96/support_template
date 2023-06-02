@@ -7,7 +7,7 @@ import { AiFillTwitterCircle } from "@react-icons/all-files/ai/AiFillTwitterCirc
 import React from "react";
 import { Tooltip } from "@chakra-ui/tooltip";
 
-const appVersion = require("../../../package.json").version;
+const appVersion = require("../../package.json").version;
 
 function Footer(props) {
   const textColor = useColorModeValue("gray.900", "white");

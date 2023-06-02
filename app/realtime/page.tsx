@@ -1,4 +1,4 @@
-import supabase from "@/app/utils/supabase";
+import supabase from "@/utils/supabase";
 
 import React from "react";
 import RealTimeTicket from "@/app/realtime/realtime-posts";

@@ -1,5 +1,5 @@
 import React from "react";
-import supabase from "@/app/utils/supabase";
+import supabase from "@/utils/supabase";
 import { notFound } from "next/navigation";
 import RealTimeTicket from "@/app/realtime/realtime-posts";
 export const revalidate = 60;

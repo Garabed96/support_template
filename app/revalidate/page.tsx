@@ -1,5 +1,5 @@
 import React from "react";
-import supabase from "@/app/utils/supabase";
+import supabase from "@/utils/supabase";
 
 export default async function Posts() {
   const { data } = await supabase.from("support_ticket").select();

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import supabase from "@/app/utils/supabase";
+import supabase from "@/utils/supabase";
 
 type Support_Ticket = {
   id: string;

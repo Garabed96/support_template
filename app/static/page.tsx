@@ -1,5 +1,5 @@
 import React from "react";
-import supabase from "@/app/utils/supabase";
+import supabase from "@/utils/supabase";
 
 export const revalidate = 60;
 

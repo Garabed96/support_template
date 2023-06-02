@@ -1,5 +1,5 @@
 "use client";
-import Layout from "../components/layout";
+import Layout from "../../components/layout";
 import React from "react";
 import { useUser } from "@supabase/auth-helpers-react";
 import CustomerTickets from "@/app/admindash/customerTickets";
