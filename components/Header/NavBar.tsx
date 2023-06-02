@@ -21,7 +21,6 @@ import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
 import { useUser } from "@supabase/auth-helpers-react";
 import { isMobile } from "../../utils/screen/conditions";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useSupabase } from "@/app/supabase-context";
 import { useAuth } from "../providers/supabase-auth-provider";
 
 //https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-5-migrating-routing-hooks
@@ -35,8 +34,33 @@ const NavBar = () => {
     lg: "lg",
     xl: "xl",
   });
+  // https://tanstack.com/query/latest/docs/react/overview
+  // https://trpc.io/docs/nextjs/setup
+  const [user, setUser] = useState<Object | null>(null);
+  useEffect(() => {
+    const sessionData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/discord", {
+          method: "GET",
+        });
+        if (!response.ok) {
+          console.log("RUNNING");
+          throw new Error("Failed to fetch data from the endpoint");
+        } else if (response) {
+          const session = await response.json();
+          // Handle the retrieved data here
 
-  const user = useUser();
+          console.log(session);
+          setUser(session);
+        }
+      } catch (error) {
+        // Handle the error here
+        console.error(error);
+      }
+    };
+    sessionData();
+  }, []);
+  // pull session data
 
   const [username, setUsername] = useState<string | null>(null);
   const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);

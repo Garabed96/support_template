@@ -5,8 +5,9 @@ import { NextResponse } from "next/server";
 export async function GET(request) {
   const supabase = createRouteHandlerClient({ cookies });
 
-  const { session } = supabase.auth.getSession();
-
+  const { data } = await supabase.auth.signInWithOAuth({
+    provider: "discord",
+  });
   // URL to redirect to after sign in process completes
-  return NextResponse.json(session);
+  return NextResponse.json(data);
 }
