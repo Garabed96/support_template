@@ -15,5 +15,6 @@ module.exports = {
         ".mdx": ["@mdx-js/loader"],
       },
     },
+    serverActions: true,
   },
 };
