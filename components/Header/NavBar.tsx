@@ -22,7 +22,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { isMobile } from "../../utils/screen/conditions";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useAuth } from "../providers/supabase-auth-provider";
-
+import { SignOutButton } from "@/components/userActions/signout";
 //https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-5-migrating-routing-hooks
 const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -50,8 +50,8 @@ const NavBar = () => {
           const session = await response.json();
           // Handle the retrieved data here
 
-          console.log(session);
-          setUser(session);
+          console.log("SESSION", session.session.user);
+          setUser(session.session.user);
         }
       } catch (error) {
         // Handle the error here
@@ -66,6 +66,8 @@ const NavBar = () => {
   const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+    console.log("metadata", user?.user_metadata?.name);
+    console.log("metadata", user?.user_metadata?.avatar_url);
     setUsername(user?.user_metadata?.name);
     setUserAvatar(user?.user_metadata?.avatar_url);
 
@@ -122,9 +124,8 @@ const NavBar = () => {
                 <i>signed in as: {username}</i>
               </Text>
               <Divider mb={2} />
-              <MenuItem bgColor="black" onClick={() => console.log("SIGN OUT")}>
-                Sign Out
-                <Text ml={2}>Sign Out</Text>
+              <MenuItem bgColor="black">
+                <SignOutButton />
               </MenuItem>
             </MenuList>
           </Menu>
