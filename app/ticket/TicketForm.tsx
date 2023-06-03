@@ -15,11 +15,11 @@ import {
 } from "@chakra-ui/react";
 const TicketForm = () => {
   const [formData, setFormData] = useState({
-    email: "",
-    name: "",
     discordAccount: "",
     refId: "",
     hashcode: "",
+    ticketType: "",
+    message: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,11 +35,11 @@ const TicketForm = () => {
     console.log(formData);
     // Reset the form
     setFormData({
-      email: "",
-      name: "",
       discordAccount: "",
       refId: "",
       hashcode: "",
+      ticketType: "",
+      message: "",
     });
   };
   const [input, setInput] = useState("");
