@@ -75,37 +75,6 @@ const TicketForm = () => {
       </Text>
       <Box width="400px" boxShadow="dark-lg" p={4} rounded="md">
         <form onSubmit={handleSubmit}>
-          <FormControl id="email" my={4} isRequired>
-            <FormLabel>Email</FormLabel>
-            <Input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-            />
-          </FormControl>
-
-          <FormControl id="name" my={4} isRequired>
-            <FormLabel>Name</FormLabel>
-            <Input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="Enter your name"
-              required
-            />
-            {!isError ? (
-              <FormHelperText>
-                Enter the email you'd like to receive the newsletter on.
-              </FormHelperText>
-            ) : (
-              <FormErrorMessage>Email is required.</FormErrorMessage>
-            )}
-          </FormControl>
-
           <FormControl id="discordAccount" my={4} isRequired>
             <FormLabel>Discord Account</FormLabel>
             <Input
@@ -116,6 +85,13 @@ const TicketForm = () => {
               placeholder="Enter your Discord account"
               required
             />
+            {!isError ? (
+              <FormHelperText>
+                Enter the email you'd like to receive the newsletter on.
+              </FormHelperText>
+            ) : (
+              <FormErrorMessage>Email is required.</FormErrorMessage>
+            )}
           </FormControl>
 
           <FormControl id="refId" my={4} isRequired>
