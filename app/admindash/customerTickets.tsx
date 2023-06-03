@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { createClient } from "@/utils/supabase-browser";
 import {
   Table,
@@ -10,6 +10,7 @@ import {
   TableContainer,
   Button,
 } from "@chakra-ui/react";
+import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 
 const PAGE_SIZE = 5; // Number of items per page
 
@@ -101,12 +102,20 @@ export default function CustomerTickets() {
         </Table>
       </TableContainer>
       <Button
+        fontSize="sm"
+        fontWeight="normal"
+        leftIcon={<ArrowBackIcon />}
+        variant="outline"
         onClick={() => handlePageChange(selectedPage - 1)}
         disabled={selectedPage === 1}
       >
         Previous
       </Button>
       <Button
+        fontSize="sm"
+        fontWeight="normal"
+        rightIcon={<ArrowForwardIcon />}
+        variant="outline"
         onClick={() => handlePageChange(selectedPage + 1)}
         disabled={selectedPage === totalPages}
       >
