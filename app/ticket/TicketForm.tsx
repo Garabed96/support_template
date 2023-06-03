@@ -59,7 +59,7 @@ const TicketForm = () => {
 
     setLoading(true);
     // Process the form data here
-    console.log(formData);
+    console.log("formData", formData);
     // Reset the form
     setFormData({
       discord_id: "",
@@ -67,16 +67,8 @@ const TicketForm = () => {
       btc_txn_hash: "",
       ticket_type: "",
       message: "",
-      discord_name: user,
     });
-    const {
-      discord_id,
-      ref_id,
-      btc_txn_hash,
-      ticket_type,
-      message,
-      discord_name,
-    } = formData;
+    const { discord_id, ref_id, btc_txn_hash, ticket_type, message } = formData;
 
     let { error } = await supabase.from("support_ticket").upsert({
       discord_id,
@@ -84,12 +76,12 @@ const TicketForm = () => {
       btc_txn_hash,
       ticket_type,
       message,
-      discord_name,
     });
 
     if (error) {
       alert(error.message);
     }
+
     setLoading(false);
   };
   const [input, setInput] = useState("");
@@ -127,11 +119,11 @@ const TicketForm = () => {
           </Text>
           <Box width="400px" boxShadow="dark-lg" p={4} rounded="md">
             <form onSubmit={handleSubmit}>
-              <FormControl id="discordAccount" my={4} isRequired>
+              <FormControl id="discord_id" my={4} isRequired>
                 <FormLabel>Discord Account</FormLabel>
                 <Input
                   type="text"
-                  name="discordAccount"
+                  name="discord_id"
                   value={formData.discord_id}
                   readOnly // Set the readOnly attribute to prevent user input
                   placeholder="Enter your Discord account"
@@ -169,18 +161,28 @@ const TicketForm = () => {
                   required
                 />
               </FormControl>
+
               <FormControl isRequired>
                 <FormLabel>Ticket Type</FormLabel>
-                <Select placeholder="Select an option">
+                <Select
+                  name="ticket_type"
+                  value={formData.ticket_type}
+                  onChange={handleChange}
+                  placeholder="Select an option"
+                >
                   <option value="status-update">Status Update</option>
-                  <option value="status-update">Billing Inquiry</option>
-                  <option value="status-update">Technical Issue</option>
-                  <option value="status-update">Feedback</option>
+                  <option value="billing-inquiry">Billing Inquiry</option>
+                  <option value="technical-issue">Technical Issue</option>
+                  <option value="feedback">Feedback</option>
                   <option value="refund">Refund</option>
-                  <option value="status-update">Other</option>
+                  <option value="other">Other</option>
                 </Select>
               </FormControl>
+
               <Textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
                 placeholder="Write a personalized message to the support team here"
                 size="lg"
                 borderRadius="md"
@@ -188,6 +190,7 @@ const TicketForm = () => {
                 _placeholder={{ color: "gray.400" }}
                 mt={4}
               />
+
               <Flex justify="flex-end">
                 <Button
                   type="submit"
