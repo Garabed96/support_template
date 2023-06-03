@@ -59,7 +59,7 @@ const TicketForm = () => {
 
     setLoading(true);
     // Process the form data here
-    console.log("formData", formData);
+    // console.log("formData", formData);
     // Reset the form
     setFormData({
       discord_id: "",
