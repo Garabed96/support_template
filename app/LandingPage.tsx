@@ -3,7 +3,7 @@ import { Box, Flex, Heading, Text, useColorModeValue } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@chakra-ui/button";
-import { EditIcon } from "@chakra-ui/icons";
+import { ArrowForwardIcon, EditIcon } from "@chakra-ui/icons";
 import {
   Modal,
   ModalOverlay,
@@ -14,13 +14,28 @@ import {
   ModalFooter,
 } from "@chakra-ui/react";
 import { useAuth } from "@/components/providers/supabase-auth-provider";
-
+import { checkSession } from "@/components/userActions/checkSession";
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { signInWithDiscord, sessionUser } = useAuth();
-
+  console.log("THIS IS SESSION USER", sessionUser);
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
+  useEffect(() => {
+    const getSession = async () => {
+      try {
+        const session = await checkSession();
+        if (!session) {
+          console.log("NO SESSION, NULL");
+        } else if (session) {
+          console.log("SESSION: ", session);
+        }
+      } catch (e) {
+        console.log("ERRORLOG");
+      }
+    };
+    getSession();
+  }, []);
 
   return (
     <Flex
@@ -95,9 +110,15 @@ const LandingPage = () => {
               </div>
             </ModalHeader>
             <ModalFooter mx="8" mb="8">
-              <Link href="/login">
-                <Button>Login?</Button>
-              </Link>
+              <Button
+                fontSize="sm"
+                fontWeight="normal"
+                rightIcon={<ArrowForwardIcon />}
+                variant="outline"
+                onClick={signInWithDiscord}
+              >
+                Login with Discord
+              </Button>
               {/*<button>Login</button>*/}
             </ModalFooter>
           </ModalContent>
