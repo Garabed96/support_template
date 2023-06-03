@@ -27,16 +27,23 @@ export default function CustomerTickets() {
   const [selectedPage, setSelectedPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [data, setData] = useState([]);
+  const [filter, setFilter] = useState("all"); // "all", "complete", "incomplete"
 
   const fetchData = async (page) => {
-    const { from, to } = getPagination(page);
-    const { data: tickets } = await supabase
-      .from("support_ticket")
-      .select()
-      .range(from, to);
+    const { from, to } = getPagination(1);
+    let query = supabase.from("support_ticket").select().range(from, to);
+
+    if (filter === "complete") {
+      query = query.filter("is_complete", "eq", "true");
+    } else if (filter === "incomplete") {
+      query = query.filter("is_complete", "eq", "false");
+    }
+
+    const { data: tickets } = await query;
 
     setData(tickets);
   };
+
   const [total, setTotal] = useState(0);
 
   const fetchTotalCount = async () => {
@@ -48,30 +55,56 @@ export default function CustomerTickets() {
       .range(from, to);
 
     setTotal(count);
-    console.log(count);
     setTotalPages(Math.ceil(count / PAGE_SIZE));
   };
+
   const handlePageChange = (page) => {
     setSelectedPage(page);
   };
 
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+    setSelectedPage(1); // Reset to first page when changing filters
+  };
+
   useEffect(() => {
     fetchData(selectedPage);
-  }, [selectedPage]);
+  }, [selectedPage, filter]);
 
   useEffect(() => {
     fetchTotalCount();
-  }, []);
+  }, [filter]);
 
   return (
     <Flex direction="column" align="center" justify="center" pt={8}>
+      <ButtonGroup mb={4}>
+        <Button
+          onClick={() => handleFilterChange("all")}
+          variant={filter === "all" ? "solid" : "outline"}
+        >
+          All
+        </Button>
+        <Button
+          onClick={() => handleFilterChange("complete")}
+          variant={filter === "complete" ? "solid" : "outline"}
+        >
+          Complete
+        </Button>
+        <Button
+          onClick={() => handleFilterChange("incomplete")}
+          variant={filter === "incomplete" ? "solid" : "outline"}
+        >
+          Incomplete
+        </Button>
+      </ButtonGroup>
+
       <Accordion
         allowMultiple
         boxShadow="dark-lg"
         minW="850px"
         border="1px #808080"
       >
-        {data.map((ticket) => (
+        {data?.map((ticket) => (
           <AccordionItem key={ticket.id}>
             <h2>
               <AccordionButton
