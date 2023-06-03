@@ -103,7 +103,9 @@ const TicketForm = () => {
           {submitted ? ( // Display thank you message if submitted
             <Box textAlign="center">
               <Heading as="h2" size="lg" marginBottom="1rem">
-                Thank You!
+                <Text as="span" color="green.400">
+                  Thank You!
+                </Text>{" "}
               </Heading>
               <Text fontSize="md" color="gray.300" marginBottom="2rem">
                 We have received your support ticket. Our team will get back to
