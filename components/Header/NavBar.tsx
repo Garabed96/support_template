@@ -21,6 +21,8 @@ import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
 import { isMobile } from "../../utils/screen/conditions";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { SignOutButton } from "@/components/userActions/signout";
+import { SignInButton } from "@/components/userActions/signin";
+
 const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const variant = useBreakpointValue({
@@ -122,7 +124,7 @@ const NavBar = () => {
           </Menu>
         ) : (
           // <Login />
-          <button>Empty login placeholder</button>
+          <SignInButton />
         )}
       </ButtonGroup>
     </Flex>

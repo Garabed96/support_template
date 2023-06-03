@@ -1,4 +1,3 @@
-import { useSupabase } from "@/components/providers/supabase-provider";
 import { redirect, useRouter } from "next/navigation";
 import { Button } from "@chakra-ui/button";
 import react, { useState } from "react";
