@@ -18,16 +18,11 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
-import { useUser } from "@supabase/auth-helpers-react";
 import { isMobile } from "../../utils/screen/conditions";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { useAuth } from "../providers/supabase-auth-provider";
 import { SignOutButton } from "@/components/userActions/signout";
-//https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#step-5-migrating-routing-hooks
 const NavBar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
-  // const supabase = useSupabaseClient();
   const variant = useBreakpointValue({
     sm: "sm",
     md: "md",
@@ -40,7 +35,7 @@ const NavBar = () => {
   useEffect(() => {
     const sessionData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/discord", {
+        const response = await fetch("http://localhost:3000/auth/login", {
           method: "GET",
         });
         if (!response.ok) {
@@ -48,19 +43,15 @@ const NavBar = () => {
           throw new Error("Failed to fetch data from the endpoint");
         } else if (response) {
           const session = await response.json();
-          // Handle the retrieved data here
-
           console.log("SESSION", session.session.user);
           setUser(session.session.user);
         }
       } catch (error) {
-        // Handle the error here
         console.error(error);
       }
     };
     sessionData();
   }, []);
-  // pull session data
 
   const [username, setUsername] = useState<string | null>(null);
   const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
