@@ -13,13 +13,14 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
+import { createClient } from "@/utils/supabase-browser";
 import { checkSession } from "@/components/userActions/checkSession";
 const TicketForm = () => {
   const [formData, setFormData] = useState({
-    discordAccount: "",
-    refId: "",
-    hashcode: "",
-    ticketType: "",
+    discord_id: "",
+    ref_id: "",
+    btc_txn_hash: "",
+    ticket_type: "",
     message: "",
   });
   const handleChange = (e) => {
@@ -29,6 +30,8 @@ const TicketForm = () => {
       [name]: value,
     }));
   };
+  const supabase = createClient();
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<Object | null>(null);
   useEffect(() => {
     const getSession = async () => {
@@ -41,7 +44,7 @@ const TicketForm = () => {
           setUser(session);
           setFormData((prevData) => ({
             ...prevData,
-            discordAccount: session.user_metadata.name,
+            discord_id: session.user_metadata.name,
           }));
         }
       } catch (e) {
@@ -51,18 +54,26 @@ const TicketForm = () => {
     getSession();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
     // Process the form data here
     console.log(formData);
     // Reset the form
     setFormData({
-      discordAccount: "",
-      refId: "",
-      hashcode: "",
-      ticketType: "",
+      discord_id: "",
+      ref_id: "",
+      btc_txn_hash: "",
+      ticket_type: "",
       message: "",
     });
+    let { error } = await supabase.from("support_ticket").upsert(formData);
+
+    if (error) {
+      alert(error.message);
+    }
+    setLoading(false);
   };
   const [input, setInput] = useState("");
   const isError = input === "";
@@ -104,7 +115,7 @@ const TicketForm = () => {
                 <Input
                   type="text"
                   name="discordAccount"
-                  value={formData.discordAccount}
+                  value={formData.discord_id}
                   readOnly // Set the readOnly attribute to prevent user input
                   placeholder="Enter your Discord account"
                   required
@@ -118,24 +129,24 @@ const TicketForm = () => {
                 )}
               </FormControl>
 
-              <FormControl id="refId" my={4} isRequired>
+              <FormControl id="ref_id" my={4} isRequired>
                 <FormLabel>Ref ID</FormLabel>
                 <Input
                   type="text"
-                  name="refId"
-                  value={formData.refId}
+                  name="ref_id"
+                  value={formData.ref_id}
                   onChange={handleChange}
                   placeholder="Enter your Ref ID"
                   required
                 />
               </FormControl>
 
-              <FormControl id="hashcode" my={4} isRequired>
+              <FormControl id="btc_txn_hash" my={4} isRequired>
                 <FormLabel>Eth or BTC Hash Code</FormLabel>
                 <Input
                   type="text"
-                  name="hashcode"
-                  value={formData.hashcode}
+                  name="btc_txn_hash"
+                  value={formData.btc_txn_hash}
                   onChange={handleChange}
                   placeholder="Enter your Eth or BTC Hash Code"
                   required
@@ -166,6 +177,7 @@ const TicketForm = () => {
                   colorScheme="green"
                   _hover={{ bg: "green.400" }}
                   mt={8}
+                  disabled={loading}
                 >
                   Submit
                 </Button>
