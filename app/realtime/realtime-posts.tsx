@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import supabase from "@/utils/supabase";
+import { createClient } from "@/utils/supabase-browser";
 
 type Support_Ticket = {
   id: string;
@@ -36,6 +36,7 @@ export default function RealTimeTicket({
   Support_Ticket: Support_Ticket[];
 }) {
   const [ticket, setTicket] = useState(Support_Ticket);
+  const supabase = createClient();
   useEffect(() => {
     const channel = supabase
       .channel("realtime tickets")
