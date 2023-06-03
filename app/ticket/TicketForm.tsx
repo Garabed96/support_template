@@ -37,8 +37,12 @@ const TicketForm = () => {
         if (!session) {
           console.log("NO SESSION, NULL");
         } else if (session) {
-          console.log("SESSION: ", session);
+          console.log("SESSION: ", session.user_metadata.name);
           setUser(session);
+          setFormData((prevData) => ({
+            ...prevData,
+            discordAccount: session.user_metadata.name,
+          }));
         }
       } catch (e) {
         console.log("ERRORLOG");
