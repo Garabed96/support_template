@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 
-const PAGE_SIZE = 7; // Number of items per page
+const PAGE_SIZE = 5; // Number of items per page
 
 export const getPagination = (page, size) => {
   const limit = size ? +size : PAGE_SIZE;
@@ -62,16 +62,9 @@ export default function CustomerTickets() {
   }, []);
 
   return (
-    <Flex
-      direction="column"
-      align="center"
-      justify="center"
-      minHeight="90vh"
-      py="5rem"
-    >
+    <Flex direction="column" align="center" justify="center" minHeight="60vh">
       <Accordion
         allowMultiple
-        border="transparent"
         boxShadow="dark-lg"
         minW="750px"
         border="1px #808080"
@@ -83,8 +76,8 @@ export default function CustomerTickets() {
                 textAlign="left"
                 _expanded={{ bg: "blue.900", color: "white" }}
               >
-                <Box flex="1" textAlign="left">
-                  {ticket.id}
+                <Box flex="1" textAlign="center">
+                  <strong>Ticket ID:</strong> {ticket.id}
                 </Box>
               </AccordionButton>
             </h2>
@@ -117,7 +110,7 @@ export default function CustomerTickets() {
           </AccordionItem>
         ))}
       </Accordion>
-      <ButtonGroup mt={8}>
+      <ButtonGroup pt={16}>
         <Button
           fontSize="sm"
           fontWeight="normal"
