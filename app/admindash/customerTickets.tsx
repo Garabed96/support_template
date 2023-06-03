@@ -30,7 +30,7 @@ export default function CustomerTickets() {
   const [filter, setFilter] = useState("all"); // "all", "complete", "incomplete"
 
   const fetchData = async (page) => {
-    const { from, to } = getPagination(1);
+    const { from, to } = getPagination(page);
     let query = supabase.from("support_ticket").select().range(from, to);
 
     if (filter === "complete") {
@@ -170,7 +170,7 @@ export default function CustomerTickets() {
         </Button>
       </ButtonGroup>
       <Box p={4} bg="blue.900" m={4} color="white" fontSize="sm">
-        {total} Tickets
+        {total} Total Tickets
       </Box>
     </Flex>
   );
