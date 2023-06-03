@@ -40,7 +40,7 @@ const NavBar = () => {
   useEffect(() => {
     const sessionData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/discord", {
+        const response = await fetch("http://localhost:3000/auth/session", {
           method: "GET",
         });
         if (!response.ok) {
