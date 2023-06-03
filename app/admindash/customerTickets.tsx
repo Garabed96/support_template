@@ -9,6 +9,7 @@ import {
   Td,
   TableContainer,
   Button,
+  Box,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 
@@ -101,26 +102,28 @@ export default function CustomerTickets() {
           </Tbody>
         </Table>
       </TableContainer>
-      <Button
-        fontSize="sm"
-        fontWeight="normal"
-        leftIcon={<ArrowBackIcon />}
-        variant="outline"
-        onClick={() => handlePageChange(selectedPage - 1)}
-        disabled={selectedPage === 1}
-      >
-        Previous
-      </Button>
-      <Button
-        fontSize="sm"
-        fontWeight="normal"
-        rightIcon={<ArrowForwardIcon />}
-        variant="outline"
-        onClick={() => handlePageChange(selectedPage + 1)}
-        disabled={selectedPage === totalPages}
-      >
-        Next
-      </Button>
+      <Box display="flex" justifyContent="center" mt={4}>
+        <Button
+          fontSize="sm"
+          fontWeight="normal"
+          leftIcon={<ArrowBackIcon />}
+          variant="outline"
+          onClick={() => handlePageChange(selectedPage - 1)}
+          disabled={selectedPage === 1}
+        >
+          Previous
+        </Button>
+        <Button
+          fontSize="sm"
+          fontWeight="normal"
+          rightIcon={<ArrowForwardIcon />}
+          variant="outline"
+          onClick={() => handlePageChange(selectedPage + 1)}
+          disabled={selectedPage === totalPages}
+        >
+          Next
+        </Button>
+      </Box>
     </>
   );
 }
