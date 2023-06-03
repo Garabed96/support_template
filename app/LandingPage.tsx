@@ -13,9 +13,12 @@ import {
   useDisclosure,
   ModalFooter,
 } from "@chakra-ui/react";
+import { useAuth } from "@/components/providers/supabase-auth-provider";
 
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { signInWithDiscord, sessionUser } = useAuth();
+
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
 

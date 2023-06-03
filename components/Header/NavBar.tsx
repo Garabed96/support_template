@@ -13,7 +13,6 @@ import {
   Box,
   Heading,
   ButtonGroup,
-  useDisclosure,
   Divider,
   Text,
 } from "@chakra-ui/react";
@@ -23,7 +22,6 @@ import { SignOutButton } from "@/components/userActions/signout";
 import { useAuth } from "@/components/providers/supabase-auth-provider";
 
 const NavBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const { signInWithDiscord, sessionUser } = useAuth();
 
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
@@ -115,7 +113,7 @@ const NavBar = () => {
             >
               <Flex justify="center" align="center" gap="0.5rem">
                 <Avatar size="xs" src={userAvatar} />
-                <Text>{username}</Text>}
+                <Text>{username}</Text>
                 {/*{isMobile(variant) ? null : <Text>{username}</Text>}*/}
               </Flex>
             </MenuButton>
