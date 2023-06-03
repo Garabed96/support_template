@@ -101,7 +101,8 @@ export default function CustomerTickets() {
       <Accordion
         allowMultiple
         boxShadow="dark-lg"
-        minW="850px"
+        minW="650px"
+        maxW="650px"
         border="1px #808080"
       >
         {data?.map((ticket) => (
@@ -141,6 +142,17 @@ export default function CustomerTickets() {
               <Box p={2}>
                 <strong>Is Complete:</strong> {ticket.is_complete.toString()}
               </Box>
+              <Button
+                p={4}
+                bg="green.800"
+                m={4}
+                color="white"
+                fontSize="sm"
+                variant="outline"
+                rounded="sm"
+              >
+                Complete Ticket
+              </Button>
             </AccordionPanel>
           </AccordionItem>
         ))}
