@@ -7,7 +7,6 @@ import type { NextRequest } from "next/server";
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   const pathname = req.nextUrl.pathname;
-
   const supabase = createMiddlewareClient<Database>({ req, res });
 
   const {
@@ -17,7 +16,7 @@ export async function middleware(req: NextRequest) {
   if (!session && pathname === "/") {
     // const url = new URL(req.url);
     // url.pathname = "/login";
-    // return NextResponse.redirect(url);
+    // return NextResponse.rewrite(url);
   } else {
     console.log("wtf", session);
   }

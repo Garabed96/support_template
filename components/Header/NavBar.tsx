@@ -28,12 +28,12 @@ const NavBar = () => {
 
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
-  const variant = useBreakpointValue({
-    sm: "sm",
-    md: "md",
-    lg: "lg",
-    xl: "xl",
-  });
+  // const variant = useBreakpointValue({
+  //   sm: "sm",
+  //   md: "md",
+  //   lg: "lg",
+  //   xl: "xl",
+  // });
   // https://tanstack.com/query/latest/docs/react/overview
   // https://trpc.io/docs/nextjs/setup
   const [user, setUser] = useState<Object | null>(null);
@@ -115,7 +115,8 @@ const NavBar = () => {
             >
               <Flex justify="center" align="center" gap="0.5rem">
                 <Avatar size="xs" src={userAvatar} />
-                {isMobile(variant) ? null : <Text>{username}</Text>}
+                <Text>{username}</Text>}
+                {/*{isMobile(variant) ? null : <Text>{username}</Text>}*/}
               </Flex>
             </MenuButton>
             <MenuList bgColor="black" fontSize="sm" zIndex={2}>
