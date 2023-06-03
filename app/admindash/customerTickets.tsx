@@ -7,6 +7,7 @@ import {
   AccordionPanel,
   Box,
   Button,
+  Flex,
   ButtonGroup,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
@@ -61,12 +62,27 @@ export default function CustomerTickets() {
   }, []);
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
-      <Accordion allowMultiple>
+    <Flex
+      direction="column"
+      align="center"
+      justify="center"
+      minHeight="90vh"
+      py="5rem"
+    >
+      <Accordion
+        allowMultiple
+        border="transparent"
+        boxShadow="dark-lg"
+        minW="750px"
+        border="1px #808080"
+      >
         {data.map((ticket) => (
           <AccordionItem key={ticket.id}>
             <h2>
-              <AccordionButton>
+              <AccordionButton
+                textAlign="left"
+                _expanded={{ bg: "blue.900", color: "white" }}
+              >
                 <Box flex="1" textAlign="left">
                   {ticket.id}
                 </Box>
@@ -101,7 +117,7 @@ export default function CustomerTickets() {
           </AccordionItem>
         ))}
       </Accordion>
-      <ButtonGroup mt={4}>
+      <ButtonGroup mt={8}>
         <Button
           fontSize="sm"
           fontWeight="normal"
@@ -125,6 +141,6 @@ export default function CustomerTickets() {
           Next
         </Button>
       </ButtonGroup>
-    </Box>
+    </Flex>
   );
 }
