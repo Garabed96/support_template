@@ -66,6 +66,17 @@ export default function CustomerTickets() {
     setFilter(newFilter);
     setSelectedPage(1); // Reset to first page when changing filters
   };
+  const completeTicket = async (ticketId) => {
+    try {
+      await supabase
+        .from("support_ticket")
+        .update({ is_complete: true })
+        .match({ id: ticketId });
+      fetchData(selectedPage); // Refresh the data after updating the completion status
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     fetchData(selectedPage);
@@ -150,6 +161,7 @@ export default function CustomerTickets() {
                 fontSize="sm"
                 variant="outline"
                 rounded="sm"
+                onClick={() => completeTicket(ticket.id)}
               >
                 Complete Ticket
               </Button>
