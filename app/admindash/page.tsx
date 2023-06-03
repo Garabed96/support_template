@@ -8,7 +8,14 @@ import { Flex } from "@chakra-ui/react";
 const Page = () => {
   return (
     <Layout>
-      <Flex display="flex" flexDirection="column" alignItems="center" pt={24}>
+      <Flex
+        minHeight="50vh"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        pt={24}
+        pb={8}
+      >
         Welcome to your DASHBOARD, ADMIN NAME
         <CustomerTickets />
       </Flex>

@@ -37,6 +37,7 @@ export default function CustomerTickets() {
 
     setData(tickets);
   };
+  const [total, setTotal] = useState(0);
 
   const fetchTotalCount = async () => {
     const { from, to } = getPagination(1);
@@ -46,9 +47,10 @@ export default function CustomerTickets() {
       .order("id", { ascending: true })
       .range(from, to);
 
+    setTotal(count);
+    console.log(count);
     setTotalPages(Math.ceil(count / PAGE_SIZE));
   };
-
   const handlePageChange = (page) => {
     setSelectedPage(page);
   };
@@ -62,11 +64,11 @@ export default function CustomerTickets() {
   }, []);
 
   return (
-    <Flex direction="column" align="center" justify="center" minHeight="60vh">
+    <Flex direction="column" align="center" justify="center" pt={8}>
       <Accordion
         allowMultiple
         boxShadow="dark-lg"
-        minW="750px"
+        minW="850px"
         border="1px #808080"
       >
         {data.map((ticket) => (
@@ -134,6 +136,9 @@ export default function CustomerTickets() {
           Next
         </Button>
       </ButtonGroup>
+      <Box p={4} bg="blue.900" m={4} color="white" fontSize="sm">
+        {total} Tickets
+      </Box>
     </Flex>
   );
 }
