@@ -40,7 +40,7 @@ const TicketForm = () => {
         if (!session) {
           console.log("NO SESSION, NULL");
         } else if (session) {
-          console.log("SESSION: ", session.user_metadata.name);
+          // console.log("SESSION: ", session.user_metadata.name);
           setUser(session);
           setFormData((prevData) => ({
             ...prevData,
@@ -67,8 +67,25 @@ const TicketForm = () => {
       btc_txn_hash: "",
       ticket_type: "",
       message: "",
+      discord_name: user,
     });
-    let { error } = await supabase.from("support_ticket").upsert(formData);
+    const {
+      discord_id,
+      ref_id,
+      btc_txn_hash,
+      ticket_type,
+      message,
+      discord_name,
+    } = formData;
+
+    let { error } = await supabase.from("support_ticket").upsert({
+      discord_id,
+      ref_id,
+      btc_txn_hash,
+      ticket_type,
+      message,
+      discord_name,
+    });
 
     if (error) {
       alert(error.message);

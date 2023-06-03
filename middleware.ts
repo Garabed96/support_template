@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest) {
     // url.pathname = "/login";
     // return NextResponse.rewrite(url);
   } else {
-    console.log("session data:", session);
+    // console.log("session data:", session);
   }
 
   return res;
