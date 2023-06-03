@@ -84,7 +84,7 @@ const NavBar = () => {
     <Flex minWidth="max-content" alignItems="center" gap="2" py="2">
       <Box px="4">
         <Heading>
-          <Link href="/app/static">
+          <Link href="/">
             <Image src={"/logos/primary-logo.svg"} maxW={110} alt="logo" />
           </Link>
         </Heading>
