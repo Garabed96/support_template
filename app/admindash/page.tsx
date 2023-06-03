@@ -8,7 +8,7 @@ const Page = () => {
 
   return (
     <Layout>
-      <div>
+      <div display="flex" flexDirection="column" alignItems="center" mt={4}>
         Welcome to your DASHBOARD, ADMIN NAME
         <CustomerTickets />
       </div>

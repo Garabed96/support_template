@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { createClient } from "@/utils/supabase-browser";
 import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  Button,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
   Box,
+  Button,
   ButtonGroup,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 
-const PAGE_SIZE = 5; // Number of items per page
+const PAGE_SIZE = 7; // Number of items per page
 
 export const getPagination = (page, size) => {
   const limit = size ? +size : PAGE_SIZE;
@@ -64,69 +61,70 @@ export default function CustomerTickets() {
   }, []);
 
   return (
-    <>
-      <TableContainer>
-        <Table
-          variant="simple"
-          p="5"
-          size="lg"
-          variant="striped"
-          colorScheme="gray"
+    <Box display="flex" flexDirection="column" alignItems="center" mt={4}>
+      <Accordion allowMultiple>
+        {data.map((ticket) => (
+          <AccordionItem key={ticket.id}>
+            <h2>
+              <AccordionButton>
+                <Box flex="1" textAlign="left">
+                  {ticket.id}
+                </Box>
+              </AccordionButton>
+            </h2>
+            <AccordionPanel pb={4}>
+              <Box p={2}>
+                <strong>ID:</strong> {ticket.id}
+              </Box>
+              <Box p={2}>
+                <strong>Created At:</strong> {ticket.created_at}
+              </Box>
+              <Box p={2}>
+                <strong>Ref ID:</strong> {ticket.ref_id}
+              </Box>
+              <Box p={2}>
+                <strong>BTC Txn Hash:</strong> {ticket.btc_txn_hash}
+              </Box>
+              <Box p={2}>
+                <strong>Ticket Type:</strong> {ticket.ticket_type}
+              </Box>
+              <Box p={2}>
+                <strong>Message:</strong> {ticket.message}
+              </Box>
+              <Box p={2}>
+                <strong>Discord ID:</strong> {ticket.discord_id}
+              </Box>
+              <Box p={2}>
+                <strong>Is Complete:</strong> {ticket.is_complete.toString()}
+              </Box>
+            </AccordionPanel>
+          </AccordionItem>
+        ))}
+      </Accordion>
+      <ButtonGroup mt={4}>
+        <Button
+          fontSize="sm"
+          fontWeight="normal"
+          rounded="sm"
+          leftIcon={<ArrowBackIcon />}
+          variant="outline"
+          onClick={() => handlePageChange(selectedPage - 1)}
+          disabled={selectedPage === 1}
         >
-          <Thead>
-            <Tr>
-              <Th>ID</Th>
-              <Th>Created At</Th>
-              <Th>Ref ID</Th>
-              <Th>BTC Txn Hash</Th>
-              <Th>Ticket Type</Th>
-              <Th>Message</Th>
-              <Th>Discord ID</Th>
-              <Th>Is Complete</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {data?.map((ticket) => (
-              <Tr key={ticket.id}>
-                <Td>{ticket.id}</Td>
-                <Td>{ticket.created_at}</Td>
-                <Td>{ticket.ref_id}</Td>
-                <Td>{ticket.btc_txn_hash}</Td>
-                <Td>{ticket.ticket_type}</Td>
-                <Td>{ticket.message}</Td>
-                <Td>{ticket.discord_id}</Td>
-                <Td>{ticket.is_complete.toString()}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-      <Box display="flex" justifyContent="center" mt={4}>
-        <ButtonGroup>
-          <Button
-            fontSize="sm"
-            fontWeight="normal"
-            rounded="sm"
-            leftIcon={<ArrowBackIcon />}
-            variant="outline"
-            onClick={() => handlePageChange(selectedPage - 1)}
-            disabled={selectedPage === 1}
-          >
-            Previous
-          </Button>
-          <Button
-            fontSize="sm"
-            rounded="sm"
-            fontWeight="normal"
-            rightIcon={<ArrowForwardIcon />}
-            variant="outline"
-            onClick={() => handlePageChange(selectedPage + 1)}
-            disabled={selectedPage === totalPages}
-          >
-            Next
-          </Button>
-        </ButtonGroup>
-      </Box>
-    </>
+          Previous
+        </Button>
+        <Button
+          fontSize="sm"
+          rounded="sm"
+          fontWeight="normal"
+          rightIcon={<ArrowForwardIcon />}
+          variant="outline"
+          onClick={() => handlePageChange(selectedPage + 1)}
+          disabled={selectedPage === totalPages}
+        >
+          Next
+        </Button>
+      </ButtonGroup>
+    </Box>
   );
 }
