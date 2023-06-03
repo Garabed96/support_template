@@ -11,9 +11,11 @@ export default function ComponentsLayout({
 }) {
   return (
     <div>
-      <NavBar />
-      {children}
-      <Footer />
+      <ChakraProvider theme={theme}>
+        <NavBar />
+        {children}
+        <Footer />
+      </ChakraProvider>
     </div>
   );
 }
