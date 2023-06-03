@@ -10,6 +10,7 @@ import {
   TableContainer,
   Button,
   Box,
+  ButtonGroup,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 
@@ -80,13 +81,12 @@ export default function CustomerTickets() {
               <Th>BTC Txn Hash</Th>
               <Th>Ticket Type</Th>
               <Th>Message</Th>
-              <Th>Updated At</Th>
               <Th>Discord ID</Th>
               <Th>Is Complete</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {data.map((ticket) => (
+            {data?.map((ticket) => (
               <Tr key={ticket.id}>
                 <Td>{ticket.id}</Td>
                 <Td>{ticket.created_at}</Td>
@@ -94,7 +94,6 @@ export default function CustomerTickets() {
                 <Td>{ticket.btc_txn_hash}</Td>
                 <Td>{ticket.ticket_type}</Td>
                 <Td>{ticket.message}</Td>
-                <Td>{ticket.updated_at}</Td>
                 <Td>{ticket.discord_id}</Td>
                 <Td>{ticket.is_complete.toString()}</Td>
               </Tr>
@@ -103,26 +102,30 @@ export default function CustomerTickets() {
         </Table>
       </TableContainer>
       <Box display="flex" justifyContent="center" mt={4}>
-        <Button
-          fontSize="sm"
-          fontWeight="normal"
-          leftIcon={<ArrowBackIcon />}
-          variant="outline"
-          onClick={() => handlePageChange(selectedPage - 1)}
-          disabled={selectedPage === 1}
-        >
-          Previous
-        </Button>
-        <Button
-          fontSize="sm"
-          fontWeight="normal"
-          rightIcon={<ArrowForwardIcon />}
-          variant="outline"
-          onClick={() => handlePageChange(selectedPage + 1)}
-          disabled={selectedPage === totalPages}
-        >
-          Next
-        </Button>
+        <ButtonGroup>
+          <Button
+            fontSize="sm"
+            fontWeight="normal"
+            rounded="sm"
+            leftIcon={<ArrowBackIcon />}
+            variant="outline"
+            onClick={() => handlePageChange(selectedPage - 1)}
+            disabled={selectedPage === 1}
+          >
+            Previous
+          </Button>
+          <Button
+            fontSize="sm"
+            rounded="sm"
+            fontWeight="normal"
+            rightIcon={<ArrowForwardIcon />}
+            variant="outline"
+            onClick={() => handlePageChange(selectedPage + 1)}
+            disabled={selectedPage === totalPages}
+          >
+            Next
+          </Button>
+        </ButtonGroup>
       </Box>
     </>
   );

@@ -139,6 +139,8 @@ const NavBar = () => {
           <Button
             fontSize="sm"
             fontWeight="normal"
+            w="full"
+            rounded="sm"
             rightIcon={<ArrowForwardIcon />}
             variant="outline"
             onClick={signInWithDiscord}
