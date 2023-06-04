@@ -43,7 +43,9 @@ const TicketForm = () => {
         if (!session) {
           console.log("NO SESSION, NULL");
         } else if (session) {
-          // console.log("SESSION: ", session.user_metadata.name);
+          console.log("SESSION: ", session.user_metadata.name);
+          console.log("SESSION: ", session.user_metadata.provider_id);
+          session.user_metadata.provider_id;
           setUser(session);
           setFormData((prevData) => ({
             ...prevData,
@@ -73,7 +75,14 @@ const TicketForm = () => {
       message: "",
       minter_discord_id: "",
     });
-    const { discord_id, ref_id, btc_txn_hash, ticket_type, message } = formData;
+    const {
+      discord_id,
+      ref_id,
+      btc_txn_hash,
+      ticket_type,
+      message,
+      minter_discord_id,
+    } = formData;
 
     // Before passing data to `support_ticket`, check if minter_discord_id of current user
     // matches the minter_discord_id of
@@ -85,12 +94,31 @@ const TicketForm = () => {
      * gerrard#1535
      * */
 
+    let { data, devError } = await dev_supabase
+      .from("minter")
+      .select("minter_discord_id")
+      .contains(minter_discord_id);
+    if (devError) {
+      alert(devError.message);
+    } else {
+      const exists = data && data.length > 0;
+      if (exists) {
+        // Value exists in the database
+        console.log("Value exists");
+        // You can also return true or perform any other actions here
+      } else {
+        // Value does not exist in the database
+        console.log("Value does not exist");
+        // You can return false or perform any other actions here
+      }
+    }
     let { error } = await supabase.from("support_ticket").upsert({
       discord_id,
       ref_id,
       btc_txn_hash,
       ticket_type,
       message,
+      minter_discord_id,
     });
 
     if (error) {
