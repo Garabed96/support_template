@@ -17,7 +17,11 @@ import { supportClient } from "@/utils/supabase-browser";
 import { createClient } from "@supabase/supabase-js";
 import { createDevClient } from "@/utils/supabase-dev";
 import { checkSession } from "@/components/userActions/checkSession";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { useAuth } from "@/components/providers/supabase-auth-provider";
 const TicketForm = () => {
+  const { signInWithDiscord } = useAuth();
+
   const [formData, setFormData] = useState({
     discord_id: "",
     ref_id: "",
@@ -266,7 +270,24 @@ const TicketForm = () => {
           )}
         </Flex>
       ) : (
-        <>please log in</>
+        <Flex
+          direction="column"
+          align="center"
+          justify="center"
+          minHeight="100vh"
+          pb="4rem"
+        >
+          <Button
+            fontSize="sm"
+            fontWeight="normal"
+            rounded="sm"
+            rightIcon={<ArrowForwardIcon />}
+            variant="outline"
+            onClick={signInWithDiscord}
+          >
+            Login with Discord
+          </Button>
+        </Flex>
       )}
     </div>
   );
