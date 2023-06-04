@@ -13,7 +13,7 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import { createClient } from "@/utils/supabase-browser";
+import { createClient, createDevClient } from "@/utils/supabase-browser";
 import { checkSession } from "@/components/userActions/checkSession";
 const TicketForm = () => {
   const [formData, setFormData] = useState({
@@ -32,6 +32,7 @@ const TicketForm = () => {
     }));
   };
   const supabase = createClient();
+  const dev_supabase = createDevClient();
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false); // Track submission status
   const [user, setUser] = useState<Object | null>(null);

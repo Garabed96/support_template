@@ -9,9 +9,3 @@ export const createClient = () => {
     cookies,
   });
 };
-
-export const createDevClient = () =>
-  createServerComponentClient<Database>(
-    process.env.DEV_SUPABASE_URL,
-    process.env.DEV_SUPABASE_ANON_KEY
-  );
