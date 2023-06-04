@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { createClient } from "@/utils/supabase-browser";
+import { supportClient } from "@/utils/supabase-browser";
 import {
   Accordion,
   AccordionItem,
@@ -23,7 +23,7 @@ export const getPagination = (page, size) => {
 };
 
 export default function AdminDashboard() {
-  const supabase = createClient();
+  const supabase = supportClient();
   const [selectedPage, setSelectedPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [data, setData] = useState([]);
