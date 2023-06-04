@@ -115,7 +115,11 @@ const TicketForm = () => {
         });
 
         if (error) {
-          alert(error.message);
+          // alert(error.message);
+          alert(
+            "An error occurred while processing your request. Please try again later."
+          );
+          console.error(error);
         }
       } else {
         // console.log("Value does not exist");
