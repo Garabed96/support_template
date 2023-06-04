@@ -22,7 +22,7 @@ export const getPagination = (page, size) => {
   return { from, to };
 };
 
-export default function CustomerTickets() {
+export default function AdminDashboard() {
   const supabase = createClient();
   const [selectedPage, setSelectedPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);

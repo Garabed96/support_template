@@ -22,6 +22,7 @@ const TicketForm = () => {
     btc_txn_hash: "",
     ticket_type: "",
     message: "",
+    minter_discord_id: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,6 +47,7 @@ const TicketForm = () => {
           setFormData((prevData) => ({
             ...prevData,
             discord_id: session.user_metadata.name,
+            minter_discord_id: session.user_metadata.provider_id,
           }));
         }
       } catch (e) {
@@ -61,17 +63,26 @@ const TicketForm = () => {
     setLoading(true);
     setSubmitted(true); // Set submission status to true
 
-    // Process the form data here
     // console.log("formData", formData);
-    // Reset the form
     setFormData({
       discord_id: "",
       ref_id: "",
       btc_txn_hash: "",
       ticket_type: "",
       message: "",
+      minter_discord_id: "",
     });
     const { discord_id, ref_id, btc_txn_hash, ticket_type, message } = formData;
+
+    // Before passing data to `support_ticket`, check if minter_discord_id of current user
+    // matches the minter_discord_id of
+
+    // Added minter to minter table with dummy data -> now match,
+
+    /*
+     * 1114544104907493408
+     * gerrard#1535
+     * */
 
     let { error } = await supabase.from("support_ticket").upsert({
       discord_id,

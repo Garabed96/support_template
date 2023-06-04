@@ -2,7 +2,7 @@
 import Layout from "../../components/layout";
 import React from "react";
 import { useUser } from "@supabase/auth-helpers-react";
-import CustomerTickets from "@/app/admindash/customerTickets";
+import AdminDashboard from "@/app/admindash/admin-dashboard";
 import { Flex } from "@chakra-ui/react";
 
 const Page = () => {
@@ -17,7 +17,7 @@ const Page = () => {
         pb={8}
       >
         Welcome to your DASHBOARD, ADMIN NAME
-        <CustomerTickets />
+        <AdminDashboard />
       </Flex>
     </Layout>
   );
