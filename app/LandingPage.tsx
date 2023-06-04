@@ -15,10 +15,10 @@ import {
 } from "@chakra-ui/react";
 import { useAuth } from "@/components/providers/supabase-auth-provider";
 import { checkSession } from "@/components/userActions/checkSession";
+import { SignInWithDiscord } from "@/components/userActions/signin";
+
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { signInWithDiscord } = useAuth();
-
   const [user, setUser] = useState<Object | null>(null);
   useEffect(() => {
     const getSession = async () => {
@@ -112,16 +112,7 @@ const LandingPage = () => {
                     </Text>
                   </div>
                   <Flex justifyContent="center" m={6}>
-                    <Button
-                      fontSize="sm"
-                      fontWeight="normal"
-                      rounded="sm"
-                      rightIcon={<ArrowForwardIcon />}
-                      variant="outline"
-                      onClick={signInWithDiscord}
-                    >
-                      Login with Discord
-                    </Button>
+                    <SignInWithDiscord />
                   </Flex>
                 </ModalHeader>
               </ModalContent>

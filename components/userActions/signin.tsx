@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@chakra-ui/button";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import React, { useState } from "react";
 
@@ -19,9 +19,7 @@ export function SignInWithDiscord() {
       if (response) {
         const data = await response.json();
         // Handle the retrieved data here
-        console.log("URL", data.url);
-        // router.push(data.url);
-        // return NextResponse.rewrite(data.url);
+        // console.log("URL", data.url);
         router.push(data.url);
       }
     } catch (error) {
