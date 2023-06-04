@@ -28,7 +28,7 @@ export default function CustomerTickets() {
   const [totalPages, setTotalPages] = useState(1);
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("all"); // "all", "complete", "incomplete"
-
+  // TODO: Show remainder tickets counter at the bottom instead of total
   const fetchData = async (page) => {
     const { from, to } = getPagination(page);
     let query = supabase.from("support_ticket").select().range(from, to);
