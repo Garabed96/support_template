@@ -12,9 +12,7 @@ import {
   ButtonGroup,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
-
-// TODO: Best Security is server side authentication, client side is easily bypassed, implement server side auth then worry about nextjs
-// This page should only be available to admin role
+import { useRouter } from "next/navigation";
 // https://dev.to/sruhleder/creating-user-profiles-on-sign-up-in-supabase-5037
 const PAGE_SIZE = 5; // Number of items per page
 
@@ -48,8 +46,24 @@ export default function AdminDashboard() {
 
     setData(tickets);
   };
-
+  const [user, setUser] = useState("");
   const [total, setTotal] = useState(0);
+  const router = useRouter();
+
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      // refresh data
+      console.log(session);
+      setUser(session?.user);
+      console.log("USER", session?.user);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router, supabase]);
 
   const fetchTotalCount = async () => {
     const { from, to } = getPagination(1);
@@ -86,6 +100,20 @@ export default function AdminDashboard() {
       fetchData(selectedPage); // Refresh the data after updating the completion status
     } catch (error) {
       console.error(error);
+    }
+  };
+
+  const refundTicket = async (ticketId) => {
+    console.log("RUN");
+    // await completeTicket(ticketId); // Call completeTicket first
+    let { error, data } = await supabase.from("refund").upsert({
+      admin_name: user.user_metadata.name,
+      minter_ref_id: user.id,
+    }); // Update both columns
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("Value passed?", data);
     }
   };
 
@@ -197,7 +225,7 @@ export default function AdminDashboard() {
                     fontSize="sm"
                     variant="outline"
                     rounded="sm"
-                    onClick={() => console.log("REFUND")}
+                    onClick={() => refundTicket(ticket.id)}
                   >
                     Refund Ticket
                   </Button>
