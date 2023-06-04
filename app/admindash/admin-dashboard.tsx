@@ -32,6 +32,7 @@ export default function AdminDashboard() {
   const [totalPages, setTotalPages] = useState(1);
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState("all"); // "all", "complete", "incomplete"
+  const [comment, setComment] = useState("");
   // TODO: Show remainder tickets counter at the bottom instead of total
   const fetchData = async (page) => {
     const { from, to } = getPagination(page);
@@ -66,6 +67,12 @@ export default function AdminDashboard() {
     setSelectedPage(page);
   };
 
+  const handleTextareaChange = (event) => {
+    const { value } = event.target;
+    console.log(comment);
+    setComment(value);
+  };
+
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
     setSelectedPage(1); // Reset to first page when changing filters
@@ -74,7 +81,7 @@ export default function AdminDashboard() {
     try {
       await supabase
         .from("support_ticket")
-        .update({ is_complete: true })
+        .update({ is_complete: true, admin_comments: comment }) // Update both columns
         .match({ id: ticketId });
       fetchData(selectedPage); // Refresh the data after updating the completion status
     } catch (error) {
@@ -165,8 +172,8 @@ export default function AdminDashboard() {
               >
                 <Textarea
                   // value={value}
-                  // onChange={handleInputChange}
-                  placeholder="Share your thoughts about this ticket"
+                  onChange={handleTextareaChange}
+                  placeholder="Share your thoughts about this ticket request"
                   size="sm"
                 />
                 <ButtonGroup>
@@ -184,7 +191,7 @@ export default function AdminDashboard() {
                   </Button>
                   <Button
                     p={4}
-                    bg="orange.800"
+                    bg="orange.700"
                     m={4}
                     color="white"
                     fontSize="sm"
