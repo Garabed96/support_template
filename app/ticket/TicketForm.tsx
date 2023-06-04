@@ -90,15 +90,10 @@ const TicketForm = () => {
     // matches the minter_discord_id of
 
     // Added minter to minter table with dummy data -> now match,
-
     /*
      * 1114544104907493408
      * gerrard#1535
      * */
-
-    console.log(typeof minter_discord_id);
-    console.log(minter_discord_id);
-
     let { data, devError } = await dev_supabase
       .from("minter")
       .select("minter_discord_id")
@@ -106,30 +101,26 @@ const TicketForm = () => {
     if (devError) {
       alert(devError.message);
     } else {
-      console.log(data);
+      // console.log(data);
       const exists = data && data.length > 0;
       if (exists) {
-        // Value exists in the database
         console.log("Value exists");
-        // You can also return true or perform any other actions here
+        let { error } = await supabase.from("support_ticket").upsert({
+          discord_id,
+          ref_id,
+          btc_txn_hash,
+          ticket_type,
+          message,
+          minter_discord_id,
+        });
+
+        if (error) {
+          alert(error.message);
+        }
       } else {
-        // Value does not exist in the database
-        console.log("Value does not exist");
-        // You can return false or perform any other actions here
+        // console.log("Value does not exist");
       }
     }
-    // let { error } = await supabase.from("support_ticket").upsert({
-    //   discord_id,
-    //   ref_id,
-    //   btc_txn_hash,
-    //   ticket_type,
-    //   message,
-    //   minter_discord_id,
-    // });
-    //
-    // if (error) {
-    //   alert(error.message);
-    // }
 
     setLoading(false);
   };
