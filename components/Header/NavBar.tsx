@@ -21,10 +21,9 @@ import { isMobile } from "../../utils/screen/conditions";
 import { SignOutButton } from "@/components/userActions/signout";
 import { useAuth } from "@/components/providers/supabase-auth-provider";
 import { useRouter } from "next/navigation";
+import { SignInWithDiscord } from "@/components/userActions/signin";
 
 const NavBar = () => {
-  const { signInWithDiscord, serverSession } = useAuth();
-
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
   // const variant = useBreakpointValue({
@@ -75,11 +74,6 @@ const NavBar = () => {
     if (user == null) {
     }
   }, [user]);
-
-  useEffect(() => {
-    console.log("WTF IS THIS?", serverSession);
-    // router.push("/");
-  }, [serverSession]);
 
   return (
     <Flex minWidth="max-content" alignItems="center" gap="2" py="2">
@@ -139,17 +133,7 @@ const NavBar = () => {
           </Menu>
         ) : (
           // <Login />
-          <Button
-            fontSize="sm"
-            fontWeight="normal"
-            w="full"
-            rounded="sm"
-            rightIcon={<ArrowForwardIcon />}
-            variant="outline"
-            onClick={signInWithDiscord}
-          >
-            Login with Discord
-          </Button>
+          <SignInWithDiscord />
         )}
       </ButtonGroup>
     </Flex>
