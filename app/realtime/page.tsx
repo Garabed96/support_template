@@ -1,4 +1,4 @@
-import { createClient } from "@/utils/supabase-browser";
+import { supportClient } from "@/utils/supabase-browser";
 
 import React from "react";
 import RealTimeTicket from "@/app/realtime/realtime-posts";
@@ -6,7 +6,7 @@ import RealTimeTicket from "@/app/realtime/realtime-posts";
 export const revalidate = 0;
 
 export default async function Posts() {
-  const supabase = createClient();
+  const supabase = supportClient();
   const { data } = await supabase.from("support_ticket").select();
 
   return <RealTimeTicket Support_Ticket={data ?? []} />;

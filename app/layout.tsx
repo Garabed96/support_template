@@ -4,7 +4,7 @@ import theme from "./../theme";
 import React from "react";
 import SupabaseProvider from "@/components/providers/supabase-provider";
 import SupabaseAuthProvider from "@/components/providers/supabase-auth-provider";
-import { createClient } from "@/utils/supabase-browser";
+import { supportClient } from "@/utils/supabase-browser";
 import { Inter } from "next/font/google";
 
 // Root layout is required
@@ -14,7 +14,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createClient();
+  const supabase = supportClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();

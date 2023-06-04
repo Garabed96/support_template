@@ -1,6 +1,6 @@
 "use client";
 
-import { createClient } from "@/utils/supabase-browser";
+import { supportClient } from "@/utils/supabase-browser";
 import { createContext, useContext, useState } from "react";
 
 import type { Database } from "../../../supabase-nextjs-server-auth/types/supabase";
@@ -17,7 +17,7 @@ export default function SupabaseProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [supabase] = useState(() => createClient());
+  const [supabase] = useState(() => supportClient());
 
   return (
     <Context.Provider value={{ supabase }}>

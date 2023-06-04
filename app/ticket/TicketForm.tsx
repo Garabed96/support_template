@@ -13,7 +13,9 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import { createClient, createDevClient } from "@/utils/supabase-browser";
+import { supportClient } from "@/utils/supabase-browser";
+import { createClient } from "@supabase/supabase-js";
+import { createDevClient } from "@/utils/supabase-dev";
 import { checkSession } from "@/components/userActions/checkSession";
 const TicketForm = () => {
   const [formData, setFormData] = useState({
@@ -31,8 +33,8 @@ const TicketForm = () => {
       [name]: value,
     }));
   };
-  const supabase = createClient();
-  const dev_supabase = createDevClient();
+  const supabase = supportClient();
+  const dev_supabase = createDevClient;
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false); // Track submission status
   const [user, setUser] = useState<Object | null>(null);
@@ -96,11 +98,11 @@ const TicketForm = () => {
 
     let { data, devError } = await dev_supabase
       .from("minter")
-      .select("minter_discord_id")
-      .contains(minter_discord_id);
+      .select("minter_discord_id");
     if (devError) {
       alert(devError.message);
     } else {
+      console.log(data);
       const exists = data && data.length > 0;
       if (exists) {
         // Value exists in the database
@@ -112,18 +114,18 @@ const TicketForm = () => {
         // You can return false or perform any other actions here
       }
     }
-    let { error } = await supabase.from("support_ticket").upsert({
-      discord_id,
-      ref_id,
-      btc_txn_hash,
-      ticket_type,
-      message,
-      minter_discord_id,
-    });
-
-    if (error) {
-      alert(error.message);
-    }
+    // let { error } = await supabase.from("support_ticket").upsert({
+    //   discord_id,
+    //   ref_id,
+    //   btc_txn_hash,
+    //   ticket_type,
+    //   message,
+    //   minter_discord_id,
+    // });
+    //
+    // if (error) {
+    //   alert(error.message);
+    // }
 
     setLoading(false);
   };
