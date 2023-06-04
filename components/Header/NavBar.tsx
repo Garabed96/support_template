@@ -20,9 +20,10 @@ import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
 import { isMobile } from "../../utils/screen/conditions";
 import { SignOutButton } from "@/components/userActions/signout";
 import { useAuth } from "@/components/providers/supabase-auth-provider";
+import { useRouter } from "next/navigation";
 
 const NavBar = () => {
-  const { signInWithDiscord, sessionUser } = useAuth();
+  const { signInWithDiscord, serverSession } = useAuth();
 
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
   // const supabase = useSupabaseClient();
@@ -34,6 +35,7 @@ const NavBar = () => {
   // });
   // https://tanstack.com/query/latest/docs/react/overview
   // https://trpc.io/docs/nextjs/setup
+  const router = useRouter();
   const [user, setUser] = useState<Object | null>(null);
   useEffect(() => {
     const sessionData = async () => {
@@ -70,13 +72,14 @@ const NavBar = () => {
     setUserAvatar(user?.user_metadata?.avatar_url);
 
     console.log("user:", user);
+    if (user == null) {
+    }
   }, [user]);
 
   useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [sessionUser]);
+    console.log("WTF IS THIS?", serverSession);
+    // router.push("/");
+  }, [serverSession]);
 
   return (
     <Flex minWidth="max-content" alignItems="center" gap="2" py="2">

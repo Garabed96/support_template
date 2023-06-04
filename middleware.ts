@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
   req.nextUrl.origin;
   const pathname = req.nextUrl.pathname;
   const supabase = createMiddlewareClient<Database>({ req, res });
-
+  // TODO: Redirecting after session in middleware isn't working, I believe a workaround would be routing to a /login where discord auth occurs and redirecting to / after login is complete.
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -21,7 +21,7 @@ export async function middleware(req: NextRequest) {
     // url.pathname = "/login";
     // return NextResponse.rewrite(url);
   } else {
-    // console.log("session data:", session);
+    // return NextResponse.rewrite(new URL("/dest", req.url));
   }
 
   return res;
