@@ -13,16 +13,18 @@ export async function middleware(req: NextRequest) {
   } = await supabase.auth.getSession();
   const redirectUrl = req.nextUrl.clone();
   const origin = redirectUrl.origin;
-  if (!session && req.nextUrl.pathname.match(origin)) {
-    let red = (redirectUrl.pathname = "/");
-    console.log(redirectUrl.origin);
-    // return NextResponse.redirect(redirectUrl.origin);
-    // const url = new URL(req.url);
-    // url.pathname = "/login";
-    // return NextResponse.rewrite(url);
-  } else {
-    // return NextResponse.rewrite(new URL("/dest", req.url));
-  }
+  console.log(session);
+  // if (!session && req.nextUrl.pathname.match(origin)) {
+  //   let red = (redirectUrl.pathname = "/");
+  //   console.log(redirectUrl.origin);
+  // return NextResponse.redirect(redirectUrl.origin);
+  // const url = new URL(req.url);
+  // url.pathname = "/login";
+  // return NextResponse.rewrite(url);
+  // } else {
+  //   console.log(session);
+  // return NextResponse.rewrite(new URL("/dest", req.url));
+  // }
 
   return res;
 }

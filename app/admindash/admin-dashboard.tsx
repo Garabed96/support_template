@@ -12,6 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 
+// TODO: Best Security is server side authentication, client side is easily bypassed, implement server side auth then worry about nextjs
+// This page should only be available to admin role
+// https://dev.to/sruhleder/creating-user-profiles-on-sign-up-in-supabase-5037
 const PAGE_SIZE = 5; // Number of items per page
 
 export const getPagination = (page, size) => {
