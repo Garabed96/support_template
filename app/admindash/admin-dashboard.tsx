@@ -105,7 +105,7 @@ export default function AdminDashboard() {
 
   const refundTicket = async (ticketId) => {
     console.log("RUN");
-    // await completeTicket(ticketId); // Call completeTicket first
+    await completeTicket(ticketId); // Call completeTicket first
     let { error, data } = await supabase.from("refund").upsert({
       admin_name: user.user_metadata.name,
       minter_ref_id: user.id,
