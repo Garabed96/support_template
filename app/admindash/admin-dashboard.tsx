@@ -6,6 +6,7 @@ import {
   AccordionButton,
   AccordionPanel,
   Box,
+  Textarea,
   Button,
   Flex,
   ButtonGroup,
@@ -156,18 +157,45 @@ export default function AdminDashboard() {
               <Box p={2}>
                 <strong>Is Complete:</strong> {ticket.is_complete.toString()}
               </Box>
-              <Button
-                p={4}
-                bg="green.800"
-                m={4}
-                color="white"
-                fontSize="sm"
-                variant="outline"
-                rounded="sm"
-                onClick={() => completeTicket(ticket.id)}
+              <Flex
+                justifyContent="center"
+                m={6}
+                flexDirection="column"
+                alignItems="center"
               >
-                Complete Ticket
-              </Button>
+                <Textarea
+                  // value={value}
+                  // onChange={handleInputChange}
+                  placeholder="Share your thoughts about this ticket"
+                  size="sm"
+                />
+                <ButtonGroup>
+                  <Button
+                    p={4}
+                    bg="green.800"
+                    m={4}
+                    color="white"
+                    fontSize="sm"
+                    variant="outline"
+                    rounded="sm"
+                    onClick={() => completeTicket(ticket.id)}
+                  >
+                    Complete Ticket
+                  </Button>
+                  <Button
+                    p={4}
+                    bg="orange.800"
+                    m={4}
+                    color="white"
+                    fontSize="sm"
+                    variant="outline"
+                    rounded="sm"
+                    onClick={() => console.log("REFUND")}
+                  >
+                    Refund Ticket
+                  </Button>
+                </ButtonGroup>
+              </Flex>
             </AccordionPanel>
           </AccordionItem>
         ))}
