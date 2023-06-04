@@ -19,9 +19,9 @@ import {
 import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
 import { isMobile } from "../../utils/screen/conditions";
 import { SignOutButton } from "@/components/userActions/signout";
-import { useAuth } from "@/components/providers/supabase-auth-provider";
 import { useRouter } from "next/navigation";
 import { SignInWithDiscord } from "@/components/userActions/signin";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 
 const NavBar = () => {
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
@@ -34,31 +34,24 @@ const NavBar = () => {
   // });
   // https://tanstack.com/query/latest/docs/react/overview
   // https://trpc.io/docs/nextjs/setup
-  const router = useRouter();
   const [user, setUser] = useState<Object | null>(null);
-  useEffect(() => {
-    const sessionData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/auth/session", {
-          method: "GET",
-        });
-        if (!response.ok) {
-          console.log("RUNNING");
-          throw new Error("Failed to fetch data from the endpoint");
-        } else if (response) {
-          const session = await response.json();
-          // Handle the retrieved data here
 
-          console.log("SESSION", session.session.user);
-          setUser(session.session.user);
-        }
-      } catch (error) {
-        // Handle the error here
-        console.error(error);
-      }
+  const [supabase] = useState(() => createPagesBrowserClient());
+  const router = useRouter();
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      // refresh data
+      console.log(session);
+      setUser(session?.user);
+      console.log("DOES THIS RUNNN?", subscription);
+    });
+
+    return () => {
+      subscription.unsubscribe();
     };
-    sessionData();
-  }, []);
+  }, [router, supabase]);
   // pull session data
 
   const [username, setUsername] = useState<string | null>(null);

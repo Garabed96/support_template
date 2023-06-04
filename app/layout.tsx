@@ -21,7 +21,6 @@ export default function RootLayout({
       // refresh data
 
       console.log("DOES THIS EVEN RUNNN?", subscription);
-      router.refresh();
     });
 
     return () => {
