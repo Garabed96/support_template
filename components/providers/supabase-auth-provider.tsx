@@ -72,10 +72,6 @@ export default function SupabaseAuthProvider({
     }
   };
 
-  // const signInWithDiscord = async () => {
-  //   await SignIn();
-  // };
-  // Sign-In with Discord
   const signInWithDiscord = async () => {
     try {
       const response = await fetch("http://localhost:3000/auth/login", {
@@ -95,21 +91,6 @@ export default function SupabaseAuthProvider({
       console.error(error);
     }
   };
-
-  // Refresh the Page to Sync Server and Client
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.access_token !== serverSession?.access_token) {
-        router.refresh();
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [router, supabase, serverSession?.access_token]);
 
   const exposed: {
     isLoading: boolean;
@@ -141,6 +122,3 @@ export const useAuth = () => {
     return context;
   }
 };
-
-//
-// export async function handler() {
