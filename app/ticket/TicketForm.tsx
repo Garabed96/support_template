@@ -96,9 +96,13 @@ const TicketForm = () => {
      * gerrard#1535
      * */
 
+    console.log(typeof minter_discord_id);
+    console.log(minter_discord_id);
+
     let { data, devError } = await dev_supabase
       .from("minter")
-      .select("minter_discord_id");
+      .select("minter_discord_id")
+      .eq("minter_discord_id", minter_discord_id);
     if (devError) {
       alert(devError.message);
     } else {
