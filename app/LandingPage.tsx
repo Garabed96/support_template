@@ -111,19 +111,19 @@ const LandingPage = () => {
                       Ticket
                     </Text>
                   </div>
+                  <Flex justifyContent="center" m={6}>
+                    <Button
+                      fontSize="sm"
+                      fontWeight="normal"
+                      rounded="sm"
+                      rightIcon={<ArrowForwardIcon />}
+                      variant="outline"
+                      onClick={signInWithDiscord}
+                    >
+                      Login with Discord
+                    </Button>
+                  </Flex>
                 </ModalHeader>
-                <ModalFooter mx="8" mb="8">
-                  <Button
-                    fontSize="sm"
-                    fontWeight="normal"
-                    rightIcon={<ArrowForwardIcon />}
-                    variant="outline"
-                    onClick={signInWithDiscord}
-                  >
-                    Login with Discord
-                  </Button>
-                  {/*<button>Login</button>*/}
-                </ModalFooter>
               </ModalContent>
             </Modal>
           </>
