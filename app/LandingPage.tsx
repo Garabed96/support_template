@@ -11,31 +11,30 @@ import {
   ModalHeader,
   ModalCloseButton,
   useDisclosure,
-  ModalFooter,
 } from "@chakra-ui/react";
-import { useAuth } from "@/components/providers/supabase-auth-provider";
-import { checkSession } from "@/components/userActions/checkSession";
 import { SignInWithDiscord } from "@/components/userActions/signin";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 
 const LandingPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [user, setUser] = useState<Object | null>(null);
+  const [supabase] = useState(() => createPagesBrowserClient());
+  const router = useRouter();
   useEffect(() => {
-    const getSession = async () => {
-      try {
-        const session = await checkSession();
-        if (!session) {
-          console.log("NO SESSION, NULL");
-        } else if (session) {
-          console.log("SESSION: ", session);
-          setUser(session);
-        }
-      } catch (e) {
-        console.log("ERRORLOG");
-      }
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      // refresh data
+      console.log(session);
+      setUser(session?.user);
+      console.log("DOES THIS RUNNN?", subscription);
+    });
+
+    return () => {
+      subscription.unsubscribe();
     };
-    getSession();
-  }, []);
+  }, [router, supabase]);
 
   return (
     <Flex
