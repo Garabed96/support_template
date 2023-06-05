@@ -24,22 +24,27 @@ export default function AdminDashboard() {
   const [filter, setFilter] = useState("all"); // "all", "complete", "incomplete"
   const [comment, setComment] = useState("");
   // TODO: Show remainder tickets counter at the bottom instead of total
+  const page_size = 5; // Number of items per page
+
   const fetchData = async (page) => {
-    const page_size = 5; // Number of items per page
     const ticket_count = await axios.get(
       `/api/complete_ticket_count?page=${page}&page_size=${page_size}`,
       { headers: { "Content-Type": "application/json" } }
     );
-    let total_ticket_count = 0;
-    if (ticket_count) {
-      const { count, data } = await ticket_count;
-      if (filter === "complete") {
-        total_ticket_count = data.filter("is_complete", "eq", "true");
-      } else if (filter === "incomplete") {
-        total_ticket_count = data.filter("is_complete", "eq", "false");
-      }
-      // setData(total_ticket_count);
+    const data = ticket_count.data;
+    if (data) {
+      console.log("DATA", typeof data.data);
+      setData(data.data);
     }
+
+    // if (tickets) {
+    //   if (filter === "complete") {
+    //     tickets = tickets.filter("is_complete", "eq", "true");
+    //   } else if (filter === "incomplete") {
+    //     tickets = tickets.filter("is_complete", "eq", "false");
+    //   }
+    //   setData(tickets);
+    // }
   };
   // const fetchData = async (page) => {
   //   let query = supabase.from("support_ticket").select().range(from, to);
@@ -83,9 +88,8 @@ export default function AdminDashboard() {
       .select("*", { count: "exact" })
       .order("id", { ascending: true })
       .range(from, to);
-
     setTotal(count);
-    setTotalPages(Math.ceil(count / PAGE_SIZE));
+    setTotalPages(Math.ceil(count / page_size));
   };
 
   const handlePageChange = (page) => {
