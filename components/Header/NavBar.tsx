@@ -46,7 +46,6 @@ const NavBar = () => {
       // console.log(session);
       setUser(session?.user);
     });
-
     return () => {
       subscription.unsubscribe();
     };

@@ -26,7 +26,7 @@ const LandingPage = () => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
       // refresh data
-      console.log(session);
+      // console.log(session);
       setUser(session?.user);
     });
 
