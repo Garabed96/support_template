@@ -26,10 +26,10 @@ export default function AdminDashboard() {
   // TODO: Show remainder tickets counter at the bottom instead of total
   const fetchData = async (page) => {
     const page_size = 5; // Number of items per page
-    const ticket_count = await axios.get("/api/complete_ticket_count", {
-      params: { page, page_size },
-      headers: { "Content-Type": "application/json" },
-    });
+    const ticket_count = await axios.get(
+      `/api/complete_ticket_count?page=${page}&page_size=${page_size}`,
+      { headers: { "Content-Type": "application/json" } }
+    );
     let total_ticket_count = 0;
     if (ticket_count) {
       const { count, data } = await ticket_count;
