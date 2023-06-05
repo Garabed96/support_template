@@ -256,8 +256,10 @@ const TicketForm = () => {
                   <Flex justify="flex-end">
                     <Button
                       type="submit"
-                      colorScheme="green"
-                      _hover={{ bg: "green.400" }}
+                      rounded="sm"
+                      variant="outline"
+                      colorScheme="green.400"
+                      _hover={{ bg: "green.400", color: "black" }}
                       mt={8}
                       disabled={loading}
                     >

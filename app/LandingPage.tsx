@@ -80,7 +80,7 @@ const LandingPage = () => {
             <Button
               w="50%"
               _hover={{ bg: "green.400" }}
-              rounded="sm"
+              rounded="lg"
               variant="outline"
               rightIcon={<EditIcon />}
               onClick={onOpen}

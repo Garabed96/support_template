@@ -96,7 +96,9 @@ const NavBar = () => {
           <Menu>
             <MenuButton
               as={Button}
+              w="full"
               fontSize="sm"
+              rounded="sm"
               fontWeight="bold"
               variant="outline"
               rightIcon={<ChevronDownIcon />}
