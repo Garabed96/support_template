@@ -49,22 +49,6 @@ export default function AdminDashboard() {
   };
   const [user, setUser] = useState("");
   const [total, setTotal] = useState(0);
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   const {
-  //     data: { subscription },
-  //   } = supabase.auth.onAuthStateChange((event, session) => {
-  //     // refresh data
-  //     console.log(session);
-  //     setUser(session?.user);
-  //     console.log("USER", session?.user);
-  //   });
-  //
-  //   return () => {
-  //     subscription.unsubscribe();
-  //   };
-  // }, [router, supabase]);
 
   useEffect(() => {
     const getSession = async () => {

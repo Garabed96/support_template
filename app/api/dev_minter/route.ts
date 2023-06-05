@@ -8,7 +8,7 @@ export async function GET(request: Request) {
     .select("minter_discord_id")
     .eq("minter_discord_id", minter_discord_id);
 
-  // TODO: This shouldn't let my doomGoblin account post since the minter doesnt match
+  // TODO: This shouldn't let DoomGoblin account post since the minter doesnt match
 
   if (data) {
   } else if (error) {
