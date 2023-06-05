@@ -8,8 +8,6 @@ export async function POST(request: Request, response: Response) {
   const complete_ticket = await request.json();
   console.log("complete_ticket:", complete_ticket);
   const { admin_comments, id } = complete_ticket;
-  console.log("admin_comments:", admin_comments);
-  console.log("id:", id);
   try {
     const { data, error } = await supabase
       .from("support_ticket")

@@ -22,7 +22,7 @@ export default function AdminDashboard() {
   const [selectedPage, setSelectedPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [data, setData] = useState([]);
-  const [filter, setFilter] = useState("all"); // "all", "complete", "incomplete"
+  const [filter, setFilter] = useState("incomplete"); // "all", "complete", "incomplete"
   const [comment, setComment] = useState("");
   // TODO: Show remainder tickets counter at the bottom instead of total
   const page_size = 5; // Number of items per page
@@ -126,10 +126,10 @@ export default function AdminDashboard() {
     <Flex direction="column" align="center" justify="center" pt={8}>
       <ButtonGroup mb={4}>
         <Button
-          onClick={() => handleFilterChange("all")}
-          variant={filter === "all" ? "solid" : "outline"}
+          onClick={() => handleFilterChange("incomplete")}
+          variant={filter === "incomplete" ? "solid" : "outline"}
         >
-          All
+          Incomplete
         </Button>
         <Button
           onClick={() => handleFilterChange("complete")}
@@ -138,10 +138,10 @@ export default function AdminDashboard() {
           Complete
         </Button>
         <Button
-          onClick={() => handleFilterChange("incomplete")}
-          variant={filter === "incomplete" ? "solid" : "outline"}
+          onClick={() => handleFilterChange("all")}
+          variant={filter === "all" ? "solid" : "outline"}
         >
-          Incomplete
+          All
         </Button>
       </ButtonGroup>
 
