@@ -8,6 +8,8 @@ export async function middleware(req) {
 
   const origin = req.headers.get("origin");
   console.log(origin);
+  // Stop people from other domains trying to access api endpoints
+  // res.headers.set("Access-Control-Allow-Origin", "https://support.ordkit.xyz https://www.support.ordkit.xyz");
   res.headers.set("Access-Control-Allow-Origin", "*");
   res.headers.set(
     "Access-Control-Allow-Methods",
