@@ -95,22 +95,10 @@ export default function AdminDashboard() {
     );
     let data = await complete_ticket;
     if (data) {
+      fetchData(selectedPage);
       console.log(data);
     }
   };
-  //    fetchData(selectedPage);
-
-  // const completeTicket = async (ticketId) => {
-  //   try {
-  //     await supabase
-  //       .from("support_ticket")
-  //       .update({ is_complete: true, admin_comments: comment }) // Update both columns
-  //       .match({ id: ticketId });
-  //     fetchData(selectedPage); // Refresh the data after updating the completion status
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
   const refundTicket = async (ticketId) => {
     console.log("RUN");
