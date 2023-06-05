@@ -109,24 +109,32 @@ const TicketForm = () => {
       const exists = data && data.length > 0;
       if (exists) {
         console.log("Value exists");
-        let { error } = await supabase.from("support_ticket").upsert({
-          discord_id,
-          ref_id,
-          btc_txn_hash,
-          ticket_type,
-          message,
-          minter_discord_id,
+        const response = await fetch("/api/support_ticket", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            discord_id,
+            ref_id,
+            btc_txn_hash,
+            ticket_type,
+            message,
+            minter_discord_id,
+          }),
         });
 
-        if (error) {
-          // alert(error.message);
-          alert(
-            "An error occurred while processing your request. Please try again later."
-          );
-          console.error(error);
+        const { success, error } = await response.json();
+
+        if (success) {
+          console.log("SENT TICKET", success);
+          // Success handling
+        } else {
+          console.log("POST FORMDATA:", formData);
+          if (error) {
+            alert(error);
+          } else {
+            alert("An error occurred while processing your request.");
+          }
         }
-      } else {
-        // console.log("Value does not exist");
       }
     }
 
