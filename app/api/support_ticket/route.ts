@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
-  const formData = await request.json(); // Assuming the formData object is passed in the request body
+  const formData = await request.json();
   const supabase = createRouteHandlerClient({ cookies });
   let { data, error } = await supabase.from("support_ticket").upsert(formData);
   if (data) {

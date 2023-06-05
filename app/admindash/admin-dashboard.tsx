@@ -15,6 +15,7 @@ import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { getPagination } from "@/utils/helper/pagination";
 import { checkSession } from "@/components/userActions/checkSession";
 import axios from "axios";
+import { headers } from "next/headers";
 // https://dev.to/sruhleder/creating-user-profiles-on-sign-up-in-supabase-5037
 export default function AdminDashboard() {
   const supabase = supportClient();
@@ -28,11 +29,10 @@ export default function AdminDashboard() {
 
   const fetchData = async (page) => {
     const ticket_count = await axios.get(
-      `/api/complete_ticket_count?page=${page}&page_size=${page_size}`,
+      `/api/fetch_tickets?page=${page}&page_size=${page_size}`,
       { headers: { "Content-Type": "application/json" } }
     );
     let data = ticket_count.data.data;
-    console.log(data);
     if (data) {
       if (filter === "complete") {
         data = data.filter((ticket) => ticket.is_complete === true);
@@ -44,7 +44,6 @@ export default function AdminDashboard() {
   };
   const [user, setUser] = useState("");
   const [total, setTotal] = useState(0);
-
   useEffect(() => {
     const getSession = async () => {
       try {
@@ -63,7 +62,6 @@ export default function AdminDashboard() {
     };
     getSession();
   }, []);
-
   const fetchTotalCount = async () => {
     const { from, to } = getPagination(1);
     const { data, count } = await supabase
@@ -74,32 +72,45 @@ export default function AdminDashboard() {
     setTotal(count);
     setTotalPages(Math.ceil(count / page_size));
   };
-
   const handlePageChange = (page) => {
     setSelectedPage(page);
   };
-
   const handleTextareaChange = (event) => {
     const { value } = event.target;
     console.log(comment);
     setComment(value);
   };
-
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
     setSelectedPage(1); // Reset to first page when changing filters
   };
   const completeTicket = async (ticketId) => {
-    try {
-      await supabase
-        .from("support_ticket")
-        .update({ is_complete: true, admin_comments: comment }) // Update both columns
-        .match({ id: ticketId });
-      fetchData(selectedPage); // Refresh the data after updating the completion status
-    } catch (error) {
-      console.error(error);
+    const complete_ticket = await axios.post(
+      "/api/complete_ticket",
+      {
+        admin_comments: comment,
+        id: ticketId,
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
+    let data = await complete_ticket;
+    if (data) {
+      console.log(data);
     }
   };
+  //    fetchData(selectedPage);
+
+  // const completeTicket = async (ticketId) => {
+  //   try {
+  //     await supabase
+  //       .from("support_ticket")
+  //       .update({ is_complete: true, admin_comments: comment }) // Update both columns
+  //       .match({ id: ticketId });
+  //     fetchData(selectedPage); // Refresh the data after updating the completion status
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const refundTicket = async (ticketId) => {
     console.log("RUN");
