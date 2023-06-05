@@ -19,8 +19,7 @@ export default function RootLayout({
       data: { subscription },
     } = supabase.auth.onAuthStateChange(() => {
       // refresh data
-
-      console.log("DOES THIS EVEN RUNNN?", subscription);
+      // console.log("DOES THIS EVEN RUNNN?", subscription);
     });
 
     return () => {

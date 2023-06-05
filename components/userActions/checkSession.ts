@@ -8,9 +8,7 @@ export async function checkSession() {
       throw new Error("Failed to fetch data from the endpoint");
     } else if (response) {
       const session = await response.json();
-      // Handle the retrieved data here
-
-      console.log("SESSION", session.session.user);
+      // console.log("SESSION", session.session.user);
       return session.session.user;
     }
   } catch (error) {

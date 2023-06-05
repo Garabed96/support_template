@@ -28,7 +28,6 @@ const LandingPage = () => {
       // refresh data
       console.log(session);
       setUser(session?.user);
-      console.log("DOES THIS RUNNN?", subscription);
     });
 
     return () => {

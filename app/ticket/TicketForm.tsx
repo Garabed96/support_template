@@ -47,8 +47,6 @@ const TicketForm = () => {
         if (!session) {
           console.log("NO SESSION, NULL");
         } else if (session) {
-          console.log("SESSION: ", session.user_metadata.name);
-          console.log("SESSION: ", session.user_metadata.provider_id);
           session.user_metadata.provider_id;
           setUser(session);
           setFormData((prevData) => ({

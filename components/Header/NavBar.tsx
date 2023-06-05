@@ -43,9 +43,8 @@ const NavBar = () => {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
       // refresh data
-      console.log(session);
+      // console.log(session);
       setUser(session?.user);
-      console.log("DOES THIS RUNNN?", subscription);
     });
 
     return () => {
@@ -58,12 +57,8 @@ const NavBar = () => {
   const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    console.log("metadata", user?.user_metadata?.name);
-    console.log("metadata", user?.user_metadata?.avatar_url);
     setUsername(user?.user_metadata?.name);
     setUserAvatar(user?.user_metadata?.avatar_url);
-
-    console.log("user:", user);
     if (user == null) {
     }
   }, [user]);
