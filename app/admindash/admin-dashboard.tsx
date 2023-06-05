@@ -12,10 +12,8 @@ import {
   ButtonGroup,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
-import { getPagination } from "@/utils/helper/pagination";
 import { checkSession } from "@/components/userActions/checkSession";
 import axios from "axios";
-import { headers } from "next/headers";
 // https://dev.to/sruhleder/creating-user-profiles-on-sign-up-in-supabase-5037
 export default function AdminDashboard() {
   const supabase = supportClient();
@@ -105,14 +103,17 @@ export default function AdminDashboard() {
 
   const refundTicket = async (ticketId) => {
     await completeTicket(ticketId); // Call completeTicket first
-    let { error, data } = await supabase.from("refund").upsert({
-      admin_name: user.user_metadata.name,
-      minter_ref_id: user.id,
-    }); // Update both columns
-    if (error) {
-      console.error(error);
-    } else {
-      // console.log("Value passed?", data);
+    const refund_ticket = await axios.post(
+      "/api/refund_ticket",
+      {
+        admin_name: user.user_metadata.name,
+        minter_ref_id: user.id,
+      },
+      { headers: { "Content-Type": "application/json" } }
+    );
+    let data = await refund_ticket;
+    if (data) {
+      console.log(data, "REFUNDED TICKET COMPLETE");
     }
   };
 
