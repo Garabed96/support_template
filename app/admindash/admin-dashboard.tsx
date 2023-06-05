@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/navigation";
+import { checkSession } from "@/components/userActions/checkSession";
 // https://dev.to/sruhleder/creating-user-profiles-on-sign-up-in-supabase-5037
 const PAGE_SIZE = 5; // Number of items per page
 
@@ -50,20 +51,39 @@ export default function AdminDashboard() {
   const [total, setTotal] = useState(0);
   const router = useRouter();
 
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      // refresh data
-      console.log(session);
-      setUser(session?.user);
-      console.log("USER", session?.user);
-    });
+  // useEffect(() => {
+  //   const {
+  //     data: { subscription },
+  //   } = supabase.auth.onAuthStateChange((event, session) => {
+  //     // refresh data
+  //     console.log(session);
+  //     setUser(session?.user);
+  //     console.log("USER", session?.user);
+  //   });
+  //
+  //   return () => {
+  //     subscription.unsubscribe();
+  //   };
+  // }, [router, supabase]);
 
-    return () => {
-      subscription.unsubscribe();
+  useEffect(() => {
+    const getSession = async () => {
+      try {
+        const session = await checkSession();
+        if (!session) {
+          console.log("NO SESSION, NULL");
+        } else if (session) {
+          console.log("SESSION: ", session.user_metadata.name);
+          console.log("SESSION: ", session.user_metadata.provider_id);
+          session.user_metadata.provider_id;
+          setUser(session);
+        }
+      } catch (e) {
+        console.log("ERRORLOG");
+      }
     };
-  }, [router, supabase]);
+    getSession();
+  }, []);
 
   const fetchTotalCount = async () => {
     const { from, to } = getPagination(1);
