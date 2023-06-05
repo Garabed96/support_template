@@ -13,13 +13,12 @@ import {
   Input,
   Textarea,
 } from "@chakra-ui/react";
-import { supportClient } from "@/utils/supabase-browser";
-import { createClient } from "@supabase/supabase-js";
 import { createDevClient } from "@/utils/supabase-dev";
 import { checkSession } from "@/components/userActions/checkSession";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useAuth } from "@/components/providers/supabase-auth-provider";
 import axios from "axios";
+import { stat } from "fs";
 const TicketForm = () => {
   const { signInWithDiscord } = useAuth();
 
@@ -38,7 +37,6 @@ const TicketForm = () => {
       [name]: value,
     }));
   };
-  const supabase = supportClient();
   const dev_supabase = createDevClient;
   const [loading, setLoading] = useState(true);
   const [submitted, setSubmitted] = useState(false); // Track submission status
@@ -90,30 +88,29 @@ const TicketForm = () => {
       minter_discord_id,
     } = formData;
 
-    let { data, devError } = await dev_supabase
-      .from("minter")
-      .select("minter_discord_id")
-      .eq("minter_discord_id", minter_discord_id);
-    if (devError) {
-      alert(devError.message);
-    } else {
-      // console.log(data);
-      const exists = data && data.length > 0;
-      if (exists) {
-        // console.log("Value formData", formData);
-        const response = await axios.post("/api/support_ticket", formData, {
-          headers: { "Content-Type": "application/json" },
-        });
-        const { error, status } = await response;
-        if (status === 200) {
-          console.log("SENT TICKET", data);
+    const dev_response = await axios.get("/api/dev_minter", {
+      params: { minter_discord_id },
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const { error, status } = await dev_response;
+    if (error) {
+      alert(error.message);
+    } else if (status && status != 200) {
+      console.log(status);
+    } else if (status == 200) {
+      const response = await axios.post("/api/support_ticket", formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+      const { error, status } = await response;
+      if (status === 200) {
+        console.log("SENT TICKET", data);
+      } else {
+        console.log("POST FORMDATA:", formData);
+        if (error) {
+          alert(error);
         } else {
-          console.log("POST FORMDATA:", formData);
-          if (error) {
-            alert(error);
-          } else {
-            alert("An error occurred while processing your request.");
-          }
+          alert("An error occurred while processing your request.");
         }
       }
     }
