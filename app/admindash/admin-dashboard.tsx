@@ -202,18 +202,20 @@ export default function AdminDashboard() {
                   size="sm"
                 />
                 <ButtonGroup>
-                  <Button
-                    p={4}
-                    bg="green.800"
-                    m={4}
-                    color="white"
-                    fontSize="sm"
-                    variant="outline"
-                    rounded="sm"
-                    onClick={() => completeTicket(ticket.id)}
-                  >
-                    Complete Ticket
-                  </Button>
+                  {!ticket.is_complete && (
+                    <Button
+                      p={4}
+                      bg="green.800"
+                      m={4}
+                      color="white"
+                      fontSize="sm"
+                      variant="outline"
+                      rounded="sm"
+                      onClick={() => completeTicket(ticket.id)}
+                    >
+                      Complete Ticket
+                    </Button>
+                  )}
                   <Button
                     p={4}
                     bg="orange.700"
