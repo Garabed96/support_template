@@ -73,7 +73,6 @@ const TicketForm = () => {
     setLoading(true);
     setSubmitted(true); // Set submission status to true
 
-    // console.log("formData", formData);
     setFormData({
       discord_id: "",
       ref_id: "",
@@ -91,14 +90,6 @@ const TicketForm = () => {
       minter_discord_id,
     } = formData;
 
-    // Before passing data to `support_ticket`, check if minter_discord_id of current user
-    // matches the minter_discord_id of
-
-    // Added minter to minter table with dummy data -> now match,
-    /*
-     * 1114544104907493408
-     * gerrard#1535
-     * */
     let { data, devError } = await dev_supabase
       .from("minter")
       .select("minter_discord_id")
@@ -109,17 +100,13 @@ const TicketForm = () => {
       // console.log(data);
       const exists = data && data.length > 0;
       if (exists) {
-        // console.log("Value exists");
-        console.log("Value formData", formData);
+        // console.log("Value formData", formData);
         const response = await axios.post("/api/support_ticket", formData, {
           headers: { "Content-Type": "application/json" },
         });
-
         const { error, status } = await response;
-
         if (status === 200) {
           console.log("SENT TICKET", data);
-          // Success handling
         } else {
           console.log("POST FORMDATA:", formData);
           if (error) {

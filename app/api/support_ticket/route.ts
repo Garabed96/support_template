@@ -4,13 +4,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const formData = await request.json(); // Assuming the formData object is passed in the request body
-  console.log("WHAT THIS?", formData);
   const supabase = createRouteHandlerClient({ cookies });
-
   let { data, error } = await supabase.from("support_ticket").upsert(formData);
-  // .upsert(formData);
   if (data) {
-    console.log("DATA JSON: ", data);
   } else if (error) {
     return new NextResponse(
       JSON.stringify({ success: false, error: error.message })
