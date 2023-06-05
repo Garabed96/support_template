@@ -18,7 +18,6 @@ import { checkSession } from "@/components/userActions/checkSession";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useAuth } from "@/components/providers/supabase-auth-provider";
 import axios from "axios";
-import { stat } from "fs";
 const TicketForm = () => {
   const { signInWithDiscord } = useAuth();
 
@@ -104,7 +103,7 @@ const TicketForm = () => {
       });
       const { error, status } = await response;
       if (status === 200) {
-        console.log("SENT TICKET", data);
+        console.log("SENT TICKET");
       } else {
         console.log("POST FORMDATA:", formData);
         if (error) {

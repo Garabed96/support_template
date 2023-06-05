@@ -4,7 +4,6 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   const supabase = createDevClient;
   const { minter_discord_id } = request.json(); // Retrieve the minter_discord_id from the request query parameters
-  console.log(minter_discord_id);
   let { data, error } = await supabase
     .from("minter")
     .select("minter_discord_id")
