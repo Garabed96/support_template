@@ -45,7 +45,7 @@ const TicketForm = () => {
       try {
         const session = await checkSession();
         if (!session) {
-          console.log("NO SESSION, NULL");
+          // console.log("NO SESSION, NULL");
         } else if (session) {
           session.user_metadata.provider_id;
           setUser(session);
@@ -56,7 +56,7 @@ const TicketForm = () => {
           }));
         }
       } catch (e) {
-        console.log("ERRORLOG");
+        // console.log("ERRORLOG");
       }
     };
     getSession();
@@ -96,24 +96,24 @@ const TicketForm = () => {
 
     const { data } = dev_response;
     if (data) {
-      console.log("dev_response", data);
+      // console.log("dev_response", data);
     } else if (status && status != 200) {
       console.log(status);
     } else if (status == 200) {
-      // const response = await axios.post("/api/support_ticket", formData, {
-      //   headers: { "Content-Type": "application/json" },
-      // });
-      // const { error, status } = await response;
-      // if (status === 200) {
-      //   console.log("SENT TICKET");
-      // } else {
-      //   console.log("POST FORMDATA:", formData);
-      //   if (error) {
-      //     alert(error);
-      //   } else {
-      //     alert("An error occurred while processing your request.");
-      //   }
-      // }
+      const response = await axios.post("/api/support_ticket", formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+      const { error, status } = await response;
+      if (status === 200) {
+        // console.log("SENT TICKET");
+      } else {
+        // console.log("POST FORMDATA:", formData);
+        if (error) {
+          alert(error);
+        } else {
+          alert("An error occurred while processing your request.");
+        }
+      }
     }
 
     setLoading(false);
@@ -218,7 +218,6 @@ const TicketForm = () => {
                       onChange={handleChange}
                       placeholder="Select an option"
                     >
-                      <option value="status-update">Status Update</option>
                       <option value="billing-inquiry">Billing Inquiry</option>
                       <option value="technical-issue">Technical Issue</option>
                       <option value="feedback">Feedback</option>

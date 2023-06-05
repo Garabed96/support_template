@@ -1,11 +1,11 @@
 import { createDevClient } from "@/utils/supabase-dev";
 import { NextResponse } from "next/server";
 export async function POST(request: Request) {
-  console.log("DOES THIS RUN");
+  // console.log("DOES THIS RUN");
   const supabase = createDevClient;
   const { minter_discord_id } = await request.json(); // Retrieve the minter_discord_id from the request query parameters
-  console.log("minters DC ID!", minter_discord_id);
-  console.log("WTF IS THIS?");
+  // console.log("minters DC ID!", minter_discord_id);
+  // console.log("WTF IS THIS?");
   let { data, error } = await supabase
     .from("minter")
     .select("minter_discord_id")

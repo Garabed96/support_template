@@ -62,7 +62,7 @@ export default function AdminDashboard() {
   }, []);
 
   const fetchTotalCount = async () => {
-    console.log("DOES THIS RUN?");
+    // console.log("DOES THIS RUN?");
     const ticket_count = await axios.get("/api/fetch_total_tickets", {
       headers: { "Content-Type": "application/json" },
     });
