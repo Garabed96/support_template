@@ -19,6 +19,7 @@ import { createDevClient } from "@/utils/supabase-dev";
 import { checkSession } from "@/components/userActions/checkSession";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 import { useAuth } from "@/components/providers/supabase-auth-provider";
+import axios from "axios";
 const TicketForm = () => {
   const { signInWithDiscord } = useAuth();
 
@@ -108,21 +109,13 @@ const TicketForm = () => {
       // console.log(data);
       const exists = data && data.length > 0;
       if (exists) {
-        console.log("Value exists");
-        const response = await fetch("/api/support_ticket", {
-          method: "POST",
+        // console.log("Value exists");
+        console.log("Value formData", formData);
+        const response = await axios.post("/api/support_ticket", formData, {
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            discord_id,
-            ref_id,
-            btc_txn_hash,
-            ticket_type,
-            message,
-            minter_discord_id,
-          }),
         });
 
-        const { success, error } = await response.json();
+        const { success, error } = await response;
 
         if (success) {
           console.log("SENT TICKET", success);
