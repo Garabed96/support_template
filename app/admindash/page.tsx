@@ -43,11 +43,10 @@ const Page = () => {
   return (
     <Layout>
       <Flex
-        minHeight="50vh"
+        minHeight="80vh"
         display="flex"
         flexDirection="column"
         alignItems="center"
-        pt={24}
         pb={8}
       >
         Welcome to your DASHBOARD, ADMIN NAME

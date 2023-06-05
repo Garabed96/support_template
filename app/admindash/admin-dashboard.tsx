@@ -49,29 +49,32 @@ export default function AdminDashboard() {
       try {
         const session = await checkSession();
         if (!session) {
-          console.log("NO SESSION, NULL");
+          // console.log("NO SESSION, NULL");
         } else if (session) {
-          console.log("SESSION: ", session.user_metadata.name);
-          console.log("SESSION: ", session.user_metadata.provider_id);
+          // console.log("SESSION: ", session.user_metadata.name);
+          // console.log("SESSION: ", session.user_metadata.provider_id);
           session.user_metadata.provider_id;
           setUser(session);
         }
       } catch (e) {
-        console.log("ERRORLOG");
+        // console.log("ERRORLOG");
       }
     };
     getSession();
   }, []);
+
   const fetchTotalCount = async () => {
-    const { from, to } = getPagination(1);
-    const { data, count } = await supabase
-      .from("support_ticket")
-      .select("*", { count: "exact" })
-      .order("id", { ascending: true })
-      .range(from, to);
-    setTotal(count);
-    setTotalPages(Math.ceil(count / page_size));
+    console.log("DOES THIS RUN?");
+    const ticket_count = await axios.get("/api/fetch_total_tickets", {
+      headers: { "Content-Type": "application/json" },
+    });
+    let data = await ticket_count;
+    if (data) {
+      setTotal(data.data.count);
+      setTotalPages(Math.ceil(data.data.count / page_size));
+    }
   };
+
   const handlePageChange = (page) => {
     setSelectedPage(page);
   };
@@ -96,12 +99,11 @@ export default function AdminDashboard() {
     let data = await complete_ticket;
     if (data) {
       fetchData(selectedPage);
-      console.log(data);
+      // console.log(data);
     }
   };
 
   const refundTicket = async (ticketId) => {
-    console.log("RUN");
     await completeTicket(ticketId); // Call completeTicket first
     let { error, data } = await supabase.from("refund").upsert({
       admin_name: user.user_metadata.name,
@@ -110,7 +112,7 @@ export default function AdminDashboard() {
     if (error) {
       console.error(error);
     } else {
-      console.log("Value passed?", data);
+      // console.log("Value passed?", data);
     }
   };
 
