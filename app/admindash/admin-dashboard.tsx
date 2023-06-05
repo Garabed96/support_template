@@ -31,34 +31,17 @@ export default function AdminDashboard() {
       `/api/complete_ticket_count?page=${page}&page_size=${page_size}`,
       { headers: { "Content-Type": "application/json" } }
     );
-    const data = ticket_count.data;
+    let data = ticket_count.data.data;
+    console.log(data);
     if (data) {
-      console.log("DATA", typeof data.data);
-      setData(data.data);
+      if (filter === "complete") {
+        data = data.filter((ticket) => ticket.is_complete === true);
+      } else if (filter === "incomplete") {
+        data = data.filter((ticket) => ticket.is_complete === false);
+      }
+      setData(data);
     }
-
-    // if (tickets) {
-    //   if (filter === "complete") {
-    //     tickets = tickets.filter("is_complete", "eq", "true");
-    //   } else if (filter === "incomplete") {
-    //     tickets = tickets.filter("is_complete", "eq", "false");
-    //   }
-    //   setData(tickets);
-    // }
   };
-  // const fetchData = async (page) => {
-  //   let query = supabase.from("support_ticket").select().range(from, to);
-  //
-  //   if (filter === "complete") {
-  //     query = query.filter("is_complete", "eq", "true");
-  //   } else if (filter === "incomplete") {
-  //     query = query.filter("is_complete", "eq", "false");
-  //   }
-  //
-  //   const { data: tickets } = await query;
-  //
-  //   setData(tickets);
-  // };
   const [user, setUser] = useState("");
   const [total, setTotal] = useState(0);
 
