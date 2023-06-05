@@ -12,19 +12,10 @@ import {
   ButtonGroup,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
-import { useRouter } from "next/navigation";
+import { getPagination } from "@/utils/helper/pagination";
 import { checkSession } from "@/components/userActions/checkSession";
 // https://dev.to/sruhleder/creating-user-profiles-on-sign-up-in-supabase-5037
 const PAGE_SIZE = 5; // Number of items per page
-
-export const getPagination = (page, size) => {
-  const limit = size ? +size : PAGE_SIZE;
-  const from = page ? (page - 1) * limit : 0;
-  const to = page ? from + limit : limit;
-
-  return { from, to };
-};
-
 export default function AdminDashboard() {
   const supabase = supportClient();
   const [selectedPage, setSelectedPage] = useState(1);
@@ -34,7 +25,7 @@ export default function AdminDashboard() {
   const [comment, setComment] = useState("");
   // TODO: Show remainder tickets counter at the bottom instead of total
   const fetchData = async (page) => {
-    const { from, to } = getPagination(page);
+    const { from, to } = getPagination(page, PAGE_SIZE);
     let query = supabase.from("support_ticket").select().range(from, to);
 
     if (filter === "complete") {
