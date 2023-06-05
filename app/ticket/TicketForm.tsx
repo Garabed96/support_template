@@ -115,10 +115,10 @@ const TicketForm = () => {
           headers: { "Content-Type": "application/json" },
         });
 
-        const { success, error } = await response;
+        const { error, status } = await response;
 
-        if (success) {
-          console.log("SENT TICKET", success);
+        if (status === 200) {
+          console.log("SENT TICKET", data);
           // Success handling
         } else {
           console.log("POST FORMDATA:", formData);
