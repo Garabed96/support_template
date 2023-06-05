@@ -84,32 +84,36 @@ const TicketForm = () => {
       message,
       minter_discord_id,
     } = formData;
+    const dev_response = await axios.post(
+      "/api/dev_minter",
+      {
+        minter_discord_id: minter_discord_id,
+      },
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
 
-    const dev_response = await axios.get("/api/dev_minter", {
-      params: { minter_discord_id },
-      headers: { "Content-Type": "application/json" },
-    });
-
-    const { error, status } = await dev_response;
-    if (error) {
-      alert(error.message);
+    const { data } = dev_response;
+    if (data) {
+      console.log("dev_response", data);
     } else if (status && status != 200) {
       console.log(status);
     } else if (status == 200) {
-      const response = await axios.post("/api/support_ticket", formData, {
-        headers: { "Content-Type": "application/json" },
-      });
-      const { error, status } = await response;
-      if (status === 200) {
-        console.log("SENT TICKET");
-      } else {
-        console.log("POST FORMDATA:", formData);
-        if (error) {
-          alert(error);
-        } else {
-          alert("An error occurred while processing your request.");
-        }
-      }
+      // const response = await axios.post("/api/support_ticket", formData, {
+      //   headers: { "Content-Type": "application/json" },
+      // });
+      // const { error, status } = await response;
+      // if (status === 200) {
+      //   console.log("SENT TICKET");
+      // } else {
+      //   console.log("POST FORMDATA:", formData);
+      //   if (error) {
+      //     alert(error);
+      //   } else {
+      //     alert("An error occurred while processing your request.");
+      //   }
+      // }
     }
 
     setLoading(false);
