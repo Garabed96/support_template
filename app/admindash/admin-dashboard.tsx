@@ -14,8 +14,8 @@ import {
 import { ArrowForwardIcon, ArrowBackIcon } from "@chakra-ui/icons";
 import { getPagination } from "@/utils/helper/pagination";
 import { checkSession } from "@/components/userActions/checkSession";
+import axios from "axios";
 // https://dev.to/sruhleder/creating-user-profiles-on-sign-up-in-supabase-5037
-const PAGE_SIZE = 5; // Number of items per page
 export default function AdminDashboard() {
   const supabase = supportClient();
   const [selectedPage, setSelectedPage] = useState(1);
@@ -25,19 +25,35 @@ export default function AdminDashboard() {
   const [comment, setComment] = useState("");
   // TODO: Show remainder tickets counter at the bottom instead of total
   const fetchData = async (page) => {
-    const { from, to } = getPagination(page, PAGE_SIZE);
-    let query = supabase.from("support_ticket").select().range(from, to);
-
-    if (filter === "complete") {
-      query = query.filter("is_complete", "eq", "true");
-    } else if (filter === "incomplete") {
-      query = query.filter("is_complete", "eq", "false");
+    const page_size = 5; // Number of items per page
+    const ticket_count = await axios.get("/api/complete_ticket_count", {
+      params: { page, page_size },
+      headers: { "Content-Type": "application/json" },
+    });
+    let total_ticket_count = 0;
+    if (ticket_count) {
+      const { count, data } = await ticket_count;
+      if (filter === "complete") {
+        total_ticket_count = data.filter("is_complete", "eq", "true");
+      } else if (filter === "incomplete") {
+        total_ticket_count = data.filter("is_complete", "eq", "false");
+      }
+      // setData(total_ticket_count);
     }
-
-    const { data: tickets } = await query;
-
-    setData(tickets);
   };
+  // const fetchData = async (page) => {
+  //   let query = supabase.from("support_ticket").select().range(from, to);
+  //
+  //   if (filter === "complete") {
+  //     query = query.filter("is_complete", "eq", "true");
+  //   } else if (filter === "incomplete") {
+  //     query = query.filter("is_complete", "eq", "false");
+  //   }
+  //
+  //   const { data: tickets } = await query;
+  //
+  //   setData(tickets);
+  // };
   const [user, setUser] = useState("");
   const [total, setTotal] = useState(0);
 
