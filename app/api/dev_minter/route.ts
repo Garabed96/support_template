@@ -11,6 +11,7 @@ export async function GET(request: Request) {
   // TODO: This shouldn't let DoomGoblin account post since the minter doesnt match
 
   if (data) {
+    console.log("minter INFO", data);
   } else if (error) {
     return new NextResponse(
       JSON.stringify({ success: false, error: error.message })
