@@ -12,6 +12,7 @@ export default function ComponentsLayout({
   return (
     <div>
       <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
         <NavBar />
         {children}
         <Footer />
