@@ -1,5 +1,5 @@
 {
-  "name": "ordkit_support",
+  "name": "support_template",
   "version": "0.1.1",
   "private": true,
   "scripts": {
@@ -39,3 +39,4 @@
     "prettier": "2.8.8"
   }
 }
+

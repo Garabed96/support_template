@@ -1,20 +1,59 @@
 "use client";
 import Layout from "../../components/layout";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useUser } from "@supabase/auth-helpers-react";
-import CustomerTickets from "@/app/admindash/customerTickets";
-const Page = () => {
-  const user = useUser();
+import AdminDashboard from "@/app/admindash/admin-dashboard";
+import { Flex } from "@chakra-ui/react";
+import { supportClient } from "@/utils/supabase-browser";
+import { useRouter } from "next/navigation";
 
+const Page = () => {
+  const supabase = supportClient();
+  const [user, setUser] = useState("");
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { data: profile } = await supabase
+        .from("profile")
+        .select("*")
+        .single();
+      if (profile) {
+        setUser(profile);
+      }
+      setLoading(false);
+    };
+
+    fetchProfile();
+  }, []);
+
+  useEffect(() => {
+    if (!loading && user?.role !== "admin") {
+      router.push("/");
+    }
+  }, [loading, user, router]);
+
+  if (loading) {
+    return null; // Render nothing while loading
+  }
+
+  if (user?.role !== "admin") {
+    return router.push("/");
+  }
   return (
     <Layout>
-      <div>
+      <Flex
+        minHeight="80vh"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        pb={8}
+      >
         Welcome to your DASHBOARD, ADMIN NAME
-        <CustomerTickets />
-      </div>
+        <AdminDashboard />
+      </Flex>
     </Layout>
   );
-  // return <Layout>Welcome to your DASHBOARD, user</Layout>;
 };
 
 export default Page;

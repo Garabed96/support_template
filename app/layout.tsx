@@ -1,33 +1,35 @@
-import "server-only";
+"use client";
 import Head from "./head";
 import theme from "./../theme";
-import React from "react";
-import SupabaseProvider from "@/components/providers/supabase-provider";
-import SupabaseAuthProvider from "@/components/providers/supabase-auth-provider";
-import { createClient } from "@/utils/supabase-browser";
-import { Inter } from "next/font/google";
+import React, { useEffect, useState } from "react";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+import { useRouter } from "next/navigation";
 
 // Root layout is required
 // https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createClient();
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const [supabase] = useState(() => createPagesBrowserClient());
+  const router = useRouter();
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(() => {
+      // refresh data
+      // console.log("DOES THIS EVEN RUNNN?", subscription);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router, supabase]);
   return (
     <html lang="en">
       <Head />
-      <body>
-        <SupabaseProvider>
-          <SupabaseAuthProvider serverSession={session}>
-            {children}
-          </SupabaseAuthProvider>
-        </SupabaseProvider>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -11,9 +11,12 @@ export default function ComponentsLayout({
 }) {
   return (
     <div>
-      <NavBar />
-      {children}
-      <Footer />
+      <ChakraProvider theme={theme}>
+        <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+        <NavBar />
+        {children}
+        <Footer />
+      </ChakraProvider>
     </div>
   );
 }

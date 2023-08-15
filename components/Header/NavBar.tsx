@@ -7,30 +7,24 @@ import { ChevronDownIcon, Icon } from "@chakra-ui/icons";
 import { Avatar } from "@chakra-ui/avatar";
 import Link from "next/link";
 import { Button } from "@chakra-ui/button";
-import {
-  Flex,
-  Spacer,
-  Box,
-  Heading,
-  ButtonGroup,
-  useDisclosure,
-  Divider,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, Spacer, Box, Heading, ButtonGroup, Divider, Text } from "@chakra-ui/react";
 import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
-import { isMobile } from "../../utils/screen/conditions";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";  // Note: I changed this from "next/navigation", as "next/router" is the correct import.
 import { SignOutButton } from "@/components/userActions/signout";
-import { SignInButton } from "@/components/userActions/signin";
+import { SignInButton, SignInWithDiscord } from "@/components/userActions/signin";  // Assuming both components are exported from the same module
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+// ... any other necessary imports ...
 
-const NavBar = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const variant = useBreakpointValue({
-    sm: "sm",
-    md: "md",
-    lg: "lg",
-    xl: "xl",
-  });
+
+export default const NavBar = () => {
+
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+  // const variant = useBreakpointValue({
+  //   sm: "sm",
+  //   md: "md",
+  //   lg: "lg",
+  //   xl: "xl",
+  // });
   // https://tanstack.com/query/latest/docs/react/overview
   // https://trpc.io/docs/nextjs/setup
   const [user, setUser] = useState<Object | null>(null);
@@ -55,23 +49,50 @@ const NavBar = () => {
     sessionData();
   }, []);
 
+const NavBar = () => {
+  // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
+  // const supabase = useSupabaseClient();
+  // const variant = useBreakpointValue({
+  //   sm: "sm",
+  //   md: "md",
+  //   lg: "lg",
+  //   xl: "xl",
+  // });
+  // https://tanstack.com/query/latest/docs/react/overview
+  // https://trpc.io/docs/nextjs/setup
+  const [user, setUser] = useState<Object | null>(null);
+
+  const [supabase] = useState(() => createPagesBrowserClient());
+  const router = useRouter();
+  useEffect(() => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      // refresh data
+      // console.log(session);
+      setUser(session?.user);
+    });
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [router, supabase]);
+  // pull session data
+
   const [username, setUsername] = useState<string | null>(null);
   const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    console.log("metadata", user?.user_metadata?.name);
-    console.log("metadata", user?.user_metadata?.avatar_url);
     setUsername(user?.user_metadata?.name);
     setUserAvatar(user?.user_metadata?.avatar_url);
-
-    console.log("user:", user);
+    if (user == null) {
+    }
   }, [user]);
 
   return (
     <Flex minWidth="max-content" alignItems="center" gap="2" py="2">
       <Box px="4">
         <Heading>
-          <Link href="/app/static">
+          <Link href="/">
             <Image src={"/logos/primary-logo.svg"} maxW={110} alt="logo" />
           </Link>
         </Heading>
@@ -95,14 +116,17 @@ const NavBar = () => {
           <Menu>
             <MenuButton
               as={Button}
+              w="full"
               fontSize="sm"
+              rounded="sm"
               fontWeight="bold"
               variant="outline"
               rightIcon={<ChevronDownIcon />}
             >
               <Flex justify="center" align="center" gap="0.5rem">
                 <Avatar size="xs" src={userAvatar} />
-                {isMobile(variant) ? null : <Text>{username}</Text>}
+                <Text>{username}</Text>
+                {/*{isMobile(variant) ? null : <Text>{username}</Text>}*/}
               </Flex>
             </MenuButton>
             <MenuList bgColor="black" fontSize="sm" zIndex={2}>
@@ -125,10 +149,10 @@ const NavBar = () => {
         ) : (
           // <Login />
           <SignInButton />
+          <SignInWithDiscord />
         )}
       </ButtonGroup>
     </Flex>
   );
 };
 
-export default NavBar;

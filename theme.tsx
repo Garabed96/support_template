@@ -4,6 +4,7 @@ const config = {
   initialColorMode: "dark",
   useSystemColorMode: true,
 };
+// clone with this: git@github.com:Garabed96/support_template.git
 
 const theme = extendTheme({
   fonts: {

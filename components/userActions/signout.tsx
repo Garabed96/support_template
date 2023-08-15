@@ -18,7 +18,8 @@ export function SignOutButton() {
       const data = await response.json();
       // Handle the retrieved data here
       console.log(data);
-      router.push("/");
+      // router.refresh();
+      window.location.href = "/";
     } catch (error) {
       // Handle the error here
       setError(error);

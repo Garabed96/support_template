@@ -1,26 +1,25 @@
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 
-import type { Database } from "@/types/supabase";
-import type { NextRequest } from "next/server";
-
-export async function middleware(req: NextRequest) {
+export async function middleware(req) {
   const res = NextResponse.next();
-  const pathname = req.nextUrl.pathname;
+  const supabase = createMiddlewareClient({ req, res });
+  await supabase.auth.getSession();
 
-  const supabase = createMiddlewareClient<Database>({ req, res });
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session && pathname === "/") {
-    const url = new URL(req.url);
-    url.pathname = "/login";
-    return NextResponse.redirect(url);
-  } else {
-    console.log("wtf", session);
-  }
+  const origin = req.headers.get("origin");
+  console.log(origin);
+  // Stop people from other domains trying to access api endpoints
+  // res.headers.set("Access-Control-Allow-Origin", "https://support.support.xyz https://www.support.support.xyz");
+  res.headers.set("Access-Control-Allow-Origin", "*");
+  res.headers.set(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.headers.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization"
+  );
+  res.headers.set("Access-Control-Max-Age", "86400");
 
   return res;
 }

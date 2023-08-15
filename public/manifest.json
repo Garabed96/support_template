@@ -1,6 +1,6 @@
 {
-  "name": "ordkit_support",
-  "short_name": "ordkit_support",
+  "name": "support_template",
+  "short_name": "support_template",
   "description": "Support Page For Premier Ordinals Toolkit",
   "categories": ["finance", "shopping"],
   "icons": [
