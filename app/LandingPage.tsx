@@ -12,7 +12,7 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
-import { SignInWithDiscord } from "@/components/userActions/signin";
+import { SignInButton } from "@/components/userActions/signin";
 import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 
@@ -44,12 +44,7 @@ const LandingPage = () => {
       py="10rem"
     >
       <Heading size="md">
-        <Image
-          src={"/logos/primary-logo.svg"}
-          width={300}
-          height={100}
-          alt="logo"
-        />
+        <Image src={"/"} width={300} height={100} alt="logo" />
       </Heading>
       <Text fontSize="lg" color="gray.200" marginBottom="2rem">
         <Text as="span" color="green.400">
@@ -110,7 +105,7 @@ const LandingPage = () => {
                     </Text>
                   </div>
                   <Flex justifyContent="center" m={6}>
-                    <SignInWithDiscord />
+                    <SignInButton />
                   </Flex>
                 </ModalHeader>
               </ModalContent>

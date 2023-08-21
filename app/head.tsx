@@ -2,7 +2,7 @@ import React from "react";
 export default function Head() {
   return (
     <React.Fragment>
-      <title>Ord kit Support Tickets</title>
+      <title>Support Ticket Supabase Template</title>
       <meta name="application-name" content="PWA App" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />

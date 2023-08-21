@@ -1,6 +1,6 @@
 "use client";
 import Layout from "../components/layout";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import LandingPage from "./LandingPage";
 
 // TODO: Fix White flash

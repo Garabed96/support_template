@@ -26,4 +26,6 @@ const MyTooltip: React.FC<
   </Tooltip>
 ));
 
+MyTooltip.displayName = "MyTooltip";
+
 export default MyTooltip;

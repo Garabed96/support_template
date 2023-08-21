@@ -25,7 +25,7 @@ const Page = () => {
     };
 
     fetchProfile();
-  }, []);
+  });
 
   useEffect(() => {
     if (!loading && user?.role !== "admin") {

@@ -25,7 +25,7 @@ export default function AdminDashboard() {
   // TODO: Show remainder tickets counter at the bottom instead of total
   const page_size = 5; // Number of items per page
 
-  const fetchData = async (page) => {
+  const fetchData = async (page: number) => {
     const ticket_count = await axios.get(
       `/api/fetch_tickets?page=${page}&page_size=${page_size}`,
       { headers: { "Content-Type": "application/json" } }
@@ -33,14 +33,14 @@ export default function AdminDashboard() {
     let data = ticket_count.data.data;
     if (data) {
       if (filter === "complete") {
-        data = data.filter((ticket) => ticket.is_complete === true);
+        data = data.filter((ticket: any) => ticket.is_complete === true);
       } else if (filter === "incomplete") {
-        data = data.filter((ticket) => ticket.is_complete === false);
+        data = data.filter((ticket: any) => ticket.is_complete === false);
       }
       setData(data);
     }
   };
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState();
   const [total, setTotal] = useState(0);
   useEffect(() => {
     const getSession = async () => {
@@ -73,19 +73,19 @@ export default function AdminDashboard() {
     }
   };
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: number) => {
     setSelectedPage(page);
   };
-  const handleTextareaChange = (event) => {
+  const handleTextareaChange = (event: any) => {
     const { value } = event.target;
     console.log(comment);
     setComment(value);
   };
-  const handleFilterChange = (newFilter) => {
+  const handleFilterChange = (newFilter: string) => {
     setFilter(newFilter);
     setSelectedPage(1); // Reset to first page when changing filters
   };
-  const completeTicket = async (ticketId) => {
+  const completeTicket = async (ticketId: number) => {
     const complete_ticket = await axios.post(
       "/api/complete_ticket",
       {
@@ -101,7 +101,7 @@ export default function AdminDashboard() {
     }
   };
 
-  const refundTicket = async (ticketId) => {
+  const refundTicket = async (ticketId: number) => {
     await completeTicket(ticketId); // Call completeTicket first
     const refund_ticket = await axios.post(
       "/api/refund_ticket",
@@ -116,10 +116,10 @@ export default function AdminDashboard() {
       console.log(data, "REFUNDED TICKET COMPLETE");
     }
   };
-
-  useEffect(() => {
-    fetchData(selectedPage);
-  }, [selectedPage, filter]);
+  //
+  // useEffect(() => {
+  //   fetchData(selectedPage);
+  // }, [selectedPage, filter, fetchData]); // Include fetchData in the dependencies
 
   useEffect(() => {
     fetchTotalCount();

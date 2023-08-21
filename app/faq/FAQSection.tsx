@@ -26,7 +26,6 @@ const FaqSection = () => {
       </Text>{" "}
       <Accordion
         allowMultiple
-        border="transparent"
         boxShadow="dark-lg"
         maxW="600px"
         border="1px #808080"

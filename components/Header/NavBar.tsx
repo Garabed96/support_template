@@ -1,53 +1,24 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Image } from "@chakra-ui/image";
-import { useBreakpointValue } from "@chakra-ui/media-query";
-import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
-import { ChevronDownIcon, Icon } from "@chakra-ui/icons";
-import { Avatar } from "@chakra-ui/avatar";
-import Link from "next/link";
-import { Button } from "@chakra-ui/button";
-import { Flex, Spacer, Box, Heading, ButtonGroup, Divider, Text } from "@chakra-ui/react";
-import { ArrowForwardIcon, QuestionIcon } from "@chakra-ui/icons";
-import { useRouter } from "next/router";  // Note: I changed this from "next/navigation", as "next/router" is the correct import.
+import { SignInButton } from "@/components/userActions/signin";
 import { SignOutButton } from "@/components/userActions/signout";
-import { SignInButton, SignInWithDiscord } from "@/components/userActions/signin";  // Assuming both components are exported from the same module
-import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
-// ... any other necessary imports ...
-
-
-export default const NavBar = () => {
-
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-  // const variant = useBreakpointValue({
-  //   sm: "sm",
-  //   md: "md",
-  //   lg: "lg",
-  //   xl: "xl",
-  // });
-  // https://tanstack.com/query/latest/docs/react/overview
-  // https://trpc.io/docs/nextjs/setup
-  const [user, setUser] = useState<Object | null>(null);
-  useEffect(() => {
-    const sessionData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/auth/login", {
-          method: "GET",
-        });
-        if (!response.ok) {
-          console.log("RUNNING");
-          throw new Error("Failed to fetch data from the endpoint");
-        } else if (response) {
-          const session = await response.json();
-          console.log("SESSION", session.session.user);
-          setUser(session.session.user);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    sessionData();
-  }, []);
+import { Avatar } from "@chakra-ui/avatar";
+import { Button } from "@chakra-ui/button";
+import { ChevronDownIcon, QuestionIcon } from "@chakra-ui/icons";
+import { Image } from "@chakra-ui/image";
+import { Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/menu";
+import {
+  Box,
+  ButtonGroup,
+  Divider,
+  Flex,
+  Heading,
+  Spacer,
+  Text,
+} from "@chakra-ui/react";
+import axios from "axios";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const NavBar = () => {
   // Q: This is another way of importing SupaBase, is it better than just doing the standard createClient in utils/supabase.ts ?
@@ -60,26 +31,21 @@ const NavBar = () => {
   // });
   // https://tanstack.com/query/latest/docs/react/overview
   // https://trpc.io/docs/nextjs/setup
-  const [user, setUser] = useState<Object | null>(null);
-
-  const [supabase] = useState(() => createPagesBrowserClient());
   const router = useRouter();
-  useEffect(() => {
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      // refresh data
-      // console.log(session);
-      setUser(session?.user);
-    });
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [router, supabase]);
-  // pull session data
+
+  const [user, setUser] = useState(null);
 
   const [username, setUsername] = useState<string | null>(null);
   const [userAvatar, setUserAvatar] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const getSession = async () => {
+      const resp = await axios.get("/api/auth/session");
+      setUser(resp.data?.session?.user);
+    };
+
+    getSession();
+  }, [router]);
 
   useEffect(() => {
     setUsername(user?.user_metadata?.name);
@@ -93,13 +59,13 @@ const NavBar = () => {
       <Box px="4">
         <Heading>
           <Link href="/">
-            <Image src={"/logos/primary-logo.svg"} maxW={110} alt="logo" />
+            <Image src={""} maxW={110} alt="logo" />
           </Link>
         </Heading>
       </Box>
       <Spacer />
       <ButtonGroup gap="4" px="4">
-        <Box w="50%" rounded="md" variant="outline">
+        <Box w="50%" rounded="md">
           <Link href="/faq">
             <Button
               w="full"
@@ -149,10 +115,10 @@ const NavBar = () => {
         ) : (
           // <Login />
           <SignInButton />
-          <SignInWithDiscord />
         )}
       </ButtonGroup>
     </Flex>
   );
 };
 
+export default NavBar;

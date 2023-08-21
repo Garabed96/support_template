@@ -179,7 +179,8 @@ const TicketForm = () => {
                     />
                     {!isError ? (
                       <FormHelperText>
-                        Enter the email you'd like to receive the newsletter on.
+                        Enter the email you&apos;d like to receive the
+                        newsletter on.
                       </FormHelperText>
                     ) : (
                       <FormErrorMessage>Email is required.</FormErrorMessage>
